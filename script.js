@@ -20,87 +20,105 @@ const students = [
   { name: "R SANDEEP", htno: "908688", marks: 351, max: 400 },
 ];
 
-// Find Topper
-const topper = students.reduce((max, student) =>
-  max.marks > student.marks ? max : student
+// Create an IntersectionObserver to add the "visible" class when elements come into view.
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        // Optionally unobserve once visible
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.1 }
 );
 
-// Populate Topper Section
-const topperSpotlight = document.querySelector(".topper-spotlight");
-topperSpotlight.innerHTML = `
-    <div class="topper-photo" style="background-image: url('${topper.name}.jpg')"></div>
-    <div class="topper-details">
+function populateTopper() {
+  // Find the topper (highest marks)
+  const topper = students.reduce((max, student) =>
+    max.marks > student.marks ? max : student
+  );
+  const topperSpotlight = document.querySelector(".topper-spotlight");
+  if (topperSpotlight) {
+    topperSpotlight.innerHTML = `
+      <div class="topper-photo" style="background-image: url('${topper.name}.jpg')"></div>
+      <div class="topper-details">
         <h2 class="topper-name">${topper.name}</h2>
         <div class="topper-marks">${topper.marks}</div>
         <p class="topper-max-marks">Out of ${topper.max} Marks</p>
         <p class="topper-htno">HT No: ${topper.htno}</p>
-    </div>
-`;
+      </div>
+    `;
+    // Observe the topper section for scroll-triggered animation
+    observer.observe(topperSpotlight);
+  }
+}
 
-// Populate Student Grid
-const studentsGrid = document.querySelector(".students-grid");
-students
-  .sort((a, b) => b.marks - a.marks)
-  .forEach((student, index) => {
-    const card = document.createElement("div");
-    card.className = "student-card";
-    card.innerHTML = `
-        <div class="student-photo" style="background-image: url('${
-          student.name
-        }.jpg')">
+function populateStudents() {
+  const studentsGrid = document.querySelector(".students-grid");
+  if (studentsGrid) {
+    // Sort students in descending order by marks
+    students
+      .sort((a, b) => b.marks - a.marks)
+      .forEach((student, index) => {
+        const card = document.createElement("div");
+        card.className = "student-card";
+        card.innerHTML = `
+          <div class="student-photo" style="background-image: url('${
+            student.name
+          }.jpg')">
             <div class="student-rank">${index + 1}</div>
-        </div>
-        <div class="student-info">
+          </div>
+          <div class="student-info">
             <h3 class="student-name">${student.name}</h3>
             <div class="student-marks">${student.marks}</div>
             <p class="student-max-marks">Max Marks: ${student.max}</p>
             <p class="ht-no">HT No: ${student.htno}</p>
-        </div>
-    `;
-    studentsGrid.appendChild(card);
-  });
+          </div>
+        `;
+        studentsGrid.appendChild(card);
+        // Observe each student card for scroll-triggered animation
+        observer.observe(card);
+      });
+  }
+}
 
-// Scroll Animation Logic
-const scrollAnimations = () => {
-  const elements = document.querySelectorAll(
-    ".topper-spotlight, .student-card"
-  );
-  const windowHeight = window.innerHeight;
-
-  elements.forEach((element) => {
-    const elementTop = element.getBoundingClientRect().top;
-
-    if (elementTop < windowHeight - 100) {
-      element.classList.add("visible");
-    }
-  });
-};
-
-// Add Scroll Event Listener
-window.addEventListener("scroll", scrollAnimations);
-
-// Trigger on Page Load
-scrollAnimations();
+// Wait for the DOM to be fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  populateTopper();
+  populateStudents();
+});
 
 // Header Scroll Behavior
 let lastScroll = 0;
 const header = document.getElementById("header");
 window.addEventListener("scroll", () => {
   const currentScroll = window.pageYOffset;
-
-  // Hide header on scroll down, show on scroll up
   if (currentScroll > lastScroll && currentScroll > 200) {
     header.style.transform = "translateY(-100%)";
   } else {
     header.style.transform = "translateY(0)";
   }
-
-  // Add scrolled class for background change
   if (currentScroll > 100) {
     header.classList.add("scrolled");
   } else {
     header.classList.remove("scrolled");
   }
-
   lastScroll = currentScroll;
+});
+
+// Mobile Menu Toggle
+const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+const nav = document.querySelector("nav");
+if (mobileMenuToggle && nav) {
+  mobileMenuToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    nav.classList.toggle("active");
+  });
+}
+document.addEventListener("click", (e) => {
+  if (!nav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+    nav.classList.remove("active");
+  }
 });
