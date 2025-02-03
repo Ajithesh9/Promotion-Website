@@ -64,10 +64,20 @@ function populateStudents() {
       .forEach((student, index) => {
         const card = document.createElement("div");
         card.className = "student-card";
+
+        // Add unique classes for the top 3 students
+        if (index === 0) {
+          card.classList.add("rank-1"); // 1st rank
+        } else if (index === 1) {
+          card.classList.add("rank-2"); // 2nd rank
+        } else if (index === 2) {
+          card.classList.add("rank-3"); // 3rd rank
+        }
+
         card.innerHTML = `
           <div class="student-photo" style="background-image: url('${
             student.name
-          }.jpg')">
+          }.jpg'), url('default-avatar.jpg')">
             <div class="student-rank">${index + 1}</div>
           </div>
           <div class="student-info">
@@ -78,6 +88,7 @@ function populateStudents() {
           </div>
         `;
         studentsGrid.appendChild(card);
+
         // Observe each student card for scroll-triggered animation
         observer.observe(card);
       });
@@ -119,6 +130,11 @@ if (mobileMenuToggle && nav) {
 }
 document.addEventListener("click", (e) => {
   if (!nav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+    nav.classList.remove("active");
+  }
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && nav.classList.contains("active")) {
     nav.classList.remove("active");
   }
 });
