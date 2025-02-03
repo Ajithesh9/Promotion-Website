@@ -21,6 +21,12 @@ body {
   line-height: 1.6;
 }
 
+/* Uniform spacing for sections */
+.results-section {
+  margin: 4rem 0;
+  padding: 0 1rem;
+}
+
 /* Header */
 header {
   position: fixed;
@@ -148,7 +154,7 @@ nav a:hover {
   padding: 0.5rem 1rem;
   text-align: center;
   border-radius: 8px;
-  margin: 1rem auto 1rem;
+  margin: 1rem auto;
   max-width: 400px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -163,7 +169,7 @@ nav a:hover {
   margin: 0 auto;
 }
 
-/* CA Foundation & common Student Card */
+/* CA Foundation & Common Student Card */
 .student-card {
   background: var(--dark-secondary);
   border-radius: 12px;
@@ -207,7 +213,7 @@ nav a:hover {
   font-size: 1.2rem;
 }
 
-/* Updated student-info to center align its content */
+/* Updated student-info to ensure centered alignment */
 .student-info {
   padding: 1.5rem;
   text-align: center;
@@ -315,8 +321,6 @@ nav a:hover {
   margin-bottom: 0.5rem;
 }
 
-/* Removed individual jr-mec quote from cards */
-
 /* Adjust student photo for smaller cards */
 .student-photo {
   height: 200px;
@@ -326,28 +330,16 @@ nav a:hover {
   position: relative;
 }
 
-/* Jr. MEC Quote Container (placed once at section end) */
-.jr-mec-quote-container {
-  text-align: center;
-  margin: 1rem auto;
-}
-
-.jr-mec-quote {
-  font-style: italic;
-  color: #ffffff;
-  font-size: 1.2rem;
-}
-
-/* Video Container */
+/* Video Container with unique styling for horizontal video */
 .video-container {
   position: relative;
   padding-bottom: 56.25%;
   height: 0;
   max-width: 800px;
-  margin: 2rem auto;
-  background: #111;
-  border: 2px solid var(--accent);
-  border-radius: 8px;
+  margin: 3rem auto;
+  background: linear-gradient(135deg, #222, #111);
+  border: 3px solid var(--accent);
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -357,6 +349,72 @@ nav a:hover {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+/* Additional styling for the Video Highlights section */
+.video-section {
+  background: var(--dark-secondary);
+  padding: 3rem 1rem;
+  border-top: 4px solid var(--accent);
+}
+
+/* Management Section */
+.management-section {
+  background: var(--dark-secondary);
+  padding: 3rem 1rem;
+  border-top: 4px solid var(--accent);
+}
+
+.management-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding: 0 1rem;
+}
+
+.management-card {
+  background: var(--dark);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.management-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.management-photo {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.management-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.management-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+}
+
+.management-info {
+  font-size: 1rem;
+  color: #ccc;
+  line-height: 1.4;
 }
 
 /* Animations */
@@ -396,7 +454,7 @@ nav a:hover {
   font-weight: 700;
   color: var(--primary);
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-family: "Manrope", sans-serif;
   letter-spacing: -0.03em;
   animation: fadeInUp 1s ease;
@@ -450,6 +508,12 @@ nav a:hover {
   .student-info {
     font-size: 0.9rem;
     padding: 1rem;
+  }
+  .video-container {
+    max-width: 90%;
+  }
+  .management-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
 }
 
