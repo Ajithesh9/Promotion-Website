@@ -154,6 +154,20 @@ nav a:hover {
 }
 
 /* Student Card */
+.student-card.rank-1 {
+  border: 2px solid #ffd700; /* Gold for 1st rank */
+  background: rgba(255, 215, 0, 0.2); /* Light gold background */
+}
+
+.student-card.rank-2 {
+  border: 2px solid #c0c0c0; /* Silver for 2nd rank */
+  background: rgba(192, 192, 192, 0.2); /* Light silver background */
+}
+
+.student-card.rank-3 {
+  border: 2px solid #cd7f32; /* Bronze for 3rd rank */
+  background: rgba(205, 127, 50, 0.2); /* Light bronze background */
+}
 .student-card {
   background: var(--dark-secondary);
   border-radius: 12px;
@@ -308,11 +322,7 @@ nav a:hover {
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .students-grid {
-    grid-template-columns: repeat(3, 1fr); /* Set to three columns for mobile */
-    padding: 1rem; /* Adjust padding if needed */
-    grid-template-columns: 1fr 1fr;
     gap: 1rem;
-    padding: 1rem;
     grid-template-columns: repeat(3, 1fr); /* Set to three columns for mobile */
     padding: 1.5rem; /* Adjust padding for mobile */
   }
