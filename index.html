@@ -4,8 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aditya CA Academy - Results</title>
+    <!-- Main page font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Modern font for management names -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -15,9 +21,14 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- Header -->
     <header id="header">
       <div class="logo-container">
-        <img src="assets/logo.png" alt="Aditya CA Academy" class="logo" />
+        <img
+          src="assets/assets/logo.png"
+          alt="Aditya CA Academy"
+          class="logo"
+        />
       </div>
       <!-- Mobile menu toggle button -->
       <button class="mobile-menu-toggle" aria-label="Toggle navigation">
@@ -33,11 +44,13 @@
       </nav>
     </header>
 
+    <!-- Hero Section -->
     <section class="hero" id="home">
       <h1>Exceptional Results. Exceptional Students.</h1>
       <p>Celebrating Academic Excellence in CA Foundation</p>
     </section>
 
+    <!-- Topper Spotlight -->
     <div class="topper-spotlight">
       <!-- Topper details will be populated by JavaScript -->
     </div>
@@ -49,6 +62,7 @@
       <div class="students-grid">
         <!-- CA Foundation student cards will be populated by JavaScript -->
       </div>
+      <div class="section-end ca-foundation-end"></div>
     </section>
 
     <!-- Jr. MEC Section (Modern, unique style) -->
@@ -57,11 +71,7 @@
       <div class="students-grid jr-mec-grid">
         <!-- Jr. MEC student cards will be populated by JavaScript -->
       </div>
-      <div class="jr-mec-quote-container">
-        <p class="jr-mec-quote">
-          "Innovation distinguishes between a leader and a follower."
-        </p>
-      </div>
+      <div class="section-end jr-mec-end"></div>
     </section>
 
     <!-- Video Highlights Section -->
@@ -75,54 +85,127 @@
           allowfullscreen
         ></iframe>
       </div>
+      <div class="section-end video-end"></div>
     </section>
 
     <!-- Meet Our Management Section -->
     <section id="management" class="results-section management-section">
       <h2>Meet Our Management</h2>
       <div class="management-grid">
-        <div class="management-card">
+        <!-- Desktop ordering: vice-chairman (left), chairman (center), secretary (right) -->
+        <div class="management-profile chairman">
           <img
-            src="assets/chairman.jpg"
+            src="https://ik.imagekit.io/lhb4hvprkpz/chairman-1_D8kjSfVCM.jpg?updatedAt=1627469626139"
             alt="Chairman"
             class="management-photo"
           />
-          <h3 class="management-name">Dr. Rajiv Sharma, PhD</h3>
+          <h3 class="management-name">Dr. N. SESHA REDDY</h3>
           <p class="management-title">Chairman</p>
           <p class="management-info">
-            With over 30 years of experience in educational leadership, Dr.
-            Sharma has been the guiding force behind Aditya Educational
-            Institutions.
+            Beginning as a Lecturer, I overcame hardships—studying under
+            kerosene lamps and in inadequate facilities—to form ADITYA. Today,
+            ADITYA stands tall with 50 institutions, 5,000 employees, and 50,000
+            students. Our success is built on initiative, determination, and
+            unwavering commitment.
           </p>
+          <div class="management-badge">Exclusive Leader</div>
         </div>
-        <div class="management-card">
+        <div class="management-profile vice-chairman">
           <img
-            src="assets/vice-chairman.jpg"
+            src="https://ik.imagekit.io/lhb4hvprkpz/vc-2_TaWGfVOgE.jpg?updatedAt=1627469627538"
             alt="Vice Chairman"
             class="management-photo"
           />
-          <h3 class="management-name">Mr. Anil Kumar, MBA</h3>
+          <h3 class="management-name">Dr. N. Sathish Reddy</h3>
           <p class="management-title">Vice Chairman</p>
           <p class="management-info">
-            Mr. Kumar oversees the academic and administrative functions,
-            ensuring the highest standards are maintained.
+            Doing Things Right and Right Things" As an Aditya alumnus from LKG
+            to Degree level, I understand the commitment of our management,
+            competence of our faculty, and sincerity of our staff. Inspired by
+            my MBA at UTS University, Australia, I blend global methodologies
+            with Aditya's ideologies to drive holistic student growth.
           </p>
+          <div class="management-badge">Dynamic Visionary</div>
         </div>
-        <div class="management-card">
+        <div class="management-profile secretary">
           <img
-            src="assets/secretary.jpg"
+            src="https://ik.imagekit.io/lhb4hvprkpz/secretary-3_H7GP-UizK.jpg?updatedAt=1627469626751"
             alt="Secretary"
             class="management-photo"
           />
-          <h3 class="management-name">Ms. Priya Verma, M.Ed</h3>
+          <h3 class="management-name">N K Deepak Reddy</h3>
           <p class="management-title">Secretary</p>
           <p class="management-info">
-            Ms. Verma coordinates all management activities, ensuring smooth
-            operations and fostering a collaborative environment.
+            Completing my education at Good Shepherd School, Ooty, I began my
+            career in software as a humble employee and rose to become a team
+            leader. Now, as Secretary of Aditya, I aim to share my experiences
+            and propel students toward success. My goal is to equip students
+            with both theoretical and practical skills to meet industry
+            expectations. Wishing all students success in their endeavors.
           </p>
+          <div class="management-badge">Organizational Expert</div>
         </div>
       </div>
+      <div class="section-end management-end"></div>
     </section>
+
+    <!-- Footer / Contact Section -->
+    <footer id="contact" class="footer-section">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img
+            src="assets/assets/logo.png"
+            alt="Aditya CA Academy"
+            class="logo"
+          />
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <a href="tel:9963376665">+91 99633 76665</a>
+            </div>
+            <div class="contact-item">
+              <i class="fab fa-whatsapp"></i>
+              <a href="https://wa.me/919866912916" target="_blank"
+                >+91 98669 12916</a
+              >
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <address>
+                Lakshminarayana Nagar,<br />
+                Kakinada - 533004
+              </address>
+            </div>
+          </div>
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d238.51420366131913!2d82.24403786245955!3d16.963368183295277!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a382871b1cc621f%3A0x2de4565cbdc8b5b8!2sADITYA%20CA%20ACADEMY!5e0!3m2!1sen!2sin!4v1738658266782!5m2!1sen!2sin"
+              width="600"
+              height="450"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+          <div class="qr-code">
+            <img src="assets/assets/qrcode3.png" alt="Scan QR Code" />
+            <p>Scan to Save Contact</p>
+          </div>
+        </div>
+        <div class="footer-credits">
+          <p>
+            <span>★ Designed &amp; Coded by</span>
+            <a href="https://github.com/ajithesh9" target="_blank">
+              ⚡ Ajithesh ⚡
+            </a>
+          </p>
+          <p>© 2024 Aditya CA Academy. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
 
     <script src="script.js"></script>
   </body>
