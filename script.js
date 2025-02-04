@@ -25,7 +25,7 @@ const jrMecStudents = [
   { name: "C N S KARTEEK", gainedMarks: 492, maxMarks: 500 },
   { name: "CH T SRI LAKSHMI", gainedMarks: 490, maxMarks: 500 },
   { name: "C S MADHURI", gainedMarks: 490, maxMarks: 500 },
-  { name: "B V V V U S K Tejaswini", gainedMarks: 488, maxMarks: 500 },
+  { name: "B V V V V U S K Tejaswini", gainedMarks: 488, maxMarks: 500 },
   { name: "P SAI MALLIK", gainedMarks: 487, maxMarks: 500 },
 ];
 
@@ -42,15 +42,15 @@ const observer = new IntersectionObserver(
   { threshold: 0.1 }
 );
 
-function populateTopper() {
-  // Find the topper (highest marks) among CA Foundation students.
+// Populate the topper section with the student having maximum marks
+const populateTopper = () => {
   const topper = students.reduce((max, student) =>
     max.marks > student.marks ? max : student
   );
   const topperSpotlight = document.querySelector(".topper-spotlight");
   if (topperSpotlight) {
     topperSpotlight.innerHTML = `
-      <div class="topper-photo" style="background-image: url('${topper.name}.jpg')"></div>
+      <div class="topper-photo" style="background-image: url('${topper.name}.jpg');"></div>
       <div class="topper-details">
         <h2 class="topper-name">${topper.name}</h2>
         <div class="topper-marks">${topper.marks}</div>
@@ -60,18 +60,17 @@ function populateTopper() {
     `;
     observer.observe(topperSpotlight);
   }
-}
+};
 
-function populateStudents() {
+// Populate CA Foundation students sorted by marks in descending order.
+const populateStudents = () => {
   const studentsGrid = document.querySelector(".students-grid");
   if (studentsGrid) {
-    // Sort CA Foundation students in descending order by marks.
     students
       .sort((a, b) => b.marks - a.marks)
       .forEach((student, index) => {
         const card = document.createElement("div");
         card.className = "student-card";
-        // Add unique classes for the top 3 students.
         if (index === 0) card.classList.add("rank-1");
         else if (index === 1) card.classList.add("rank-2");
         else if (index === 2) card.classList.add("rank-3");
@@ -79,7 +78,7 @@ function populateStudents() {
         card.innerHTML = `
           <div class="student-photo" style="background-image: url('${
             student.name
-          }.jpg'), url('default-avatar.jpg')">
+          }.jpg'), url('default-avatar.jpg');">
             <div class="student-rank">${index + 1}</div>
           </div>
           <div class="student-info">
@@ -93,20 +92,19 @@ function populateStudents() {
         observer.observe(card);
       });
   }
-}
+};
 
-function populateJrMecStudents() {
+// Populate Jr. MEC students (modern-styled cards) sorted by marks.
+const populateJrMecStudents = () => {
   const jrMecGrid = document.querySelector(".jr-mec-grid");
   if (jrMecGrid) {
-    // Sort Jr. MEC students in descending order by gained marks.
     jrMecStudents
       .sort((a, b) => b.gainedMarks - a.gainedMarks)
       .forEach((student) => {
         const card = document.createElement("div");
-        // Use the modern style by applying the "jr-mec" modifier class.
         card.className = "student-card jr-mec";
         card.innerHTML = `
-          <div class="student-photo" style="background-image: url('${student.name}.jpg'), url('default-avatar.jpg')"></div>
+          <div class="student-photo" style="background-image: url('${student.name}.jpg'), url('default-avatar.jpg');"></div>
           <div class="student-info">
             <h3 class="student-name">${student.name}</h3>
             <div class="student-marks">${student.gainedMarks}</div>
@@ -117,29 +115,24 @@ function populateJrMecStudents() {
         observer.observe(card);
       });
   }
-}
+};
 
-// Wait for the DOM to be fully loaded and then initialize everything.
 document.addEventListener("DOMContentLoaded", () => {
   populateTopper();
   populateStudents();
   populateJrMecStudents();
 
-  // Header Scroll Behavior
+  // Header scroll hide/show functionality
   let lastScroll = 0;
   const header = document.getElementById("header");
   window.addEventListener("scroll", () => {
     const currentScroll = window.pageYOffset;
-    if (currentScroll > lastScroll && currentScroll > 200) {
-      header.style.transform = "translateY(-100%)";
-    } else {
-      header.style.transform = "translateY(0)";
-    }
-    if (currentScroll > 100) {
-      header.classList.add("scrolled");
-    } else {
-      header.classList.remove("scrolled");
-    }
+    // Hide header on scroll down if scrolled more than 200px; show on scroll up.
+    header.style.transform =
+      currentScroll > lastScroll && currentScroll > 200
+        ? "translateY(-100%)"
+        : "translateY(0)";
+    header.classList.toggle("scrolled", currentScroll > 100);
     lastScroll = currentScroll;
   });
 
