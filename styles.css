@@ -54,6 +54,7 @@ header.scrolled {
 
 .logo {
   height: 50px;
+  /* Use drop-shadow for natural look */
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
@@ -191,7 +192,8 @@ nav a:hover {
 }
 
 .student-photo {
-  height: 300px;
+  height: 200px;
+  width: 100%;
   background-size: cover;
   background-position: center;
   position: relative;
@@ -213,7 +215,7 @@ nav a:hover {
   font-size: 1.2rem;
 }
 
-/* Updated student-info to ensure centered alignment */
+/* Centered student-info */
 .student-info {
   padding: 1.5rem;
   text-align: center;
@@ -281,21 +283,21 @@ nav a:hover {
 
 /* Unique styles for the top 3 CA Foundation students */
 .student-card.rank-1 {
-  border: 2px solid #ffd700; /* Gold */
+  border: 2px solid #ffd700;
   background: rgba(255, 215, 0, 0.2);
 }
 
 .student-card.rank-2 {
-  border: 2px solid #c0c0c0; /* Silver */
+  border: 2px solid #c0c0c0;
   background: rgba(192, 192, 192, 0.2);
 }
 
 .student-card.rank-3 {
-  border: 2px solid #cd7f32; /* Bronze */
+  border: 2px solid #cd7f32;
   background: rgba(205, 127, 50, 0.2);
 }
 
-/* Unique Jr. MEC Card Styling (Modern Look) */
+/* Unique Jr. MEC Card Styling */
 .student-card.jr-mec {
   background: linear-gradient(135deg, var(--dark-secondary), var(--dark));
   border: 2px solid var(--accent);
@@ -321,21 +323,19 @@ nav a:hover {
   margin-bottom: 0.5rem;
 }
 
-/* Adjust student photo for smaller cards */
-.student-photo {
-  height: 200px;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-  position: relative;
+/* Video Highlights Section */
+.video-section {
+  background: var(--dark-secondary);
+  padding: 3rem 1rem;
+  border-top: 4px solid var(--accent);
 }
 
-/* Video Container with unique styling for horizontal video */
+/* Updated Video Container – horizontal (long format) using aspect-ratio */
 .video-container {
   position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  max-width: 800px;
+  width: 100%;
+  max-width: 960px;
+  aspect-ratio: 16 / 9;
   margin: 3rem auto;
   background: linear-gradient(135deg, #222, #111);
   border: 3px solid var(--accent);
@@ -351,70 +351,184 @@ nav a:hover {
   height: 100%;
 }
 
-/* Additional styling for the Video Highlights section */
-.video-section {
-  background: var(--dark-secondary);
-  padding: 3rem 1rem;
-  border-top: 4px solid var(--accent);
+/* Redesigned Section End Dividers */
+.section-end {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  margin-top: 2rem;
+  overflow: hidden;
 }
 
-/* Management Section */
+.ca-foundation-end::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 150%;
+  height: 100%;
+  border-radius: 50%;
+  transform: translateX(-50%) translateY(50%);
+  background: linear-gradient(90deg, #ffd700, #ff9f43);
+}
+
+.jr-mec-end::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 150%;
+  height: 100%;
+  border-radius: 50%;
+  transform: translateX(-50%) translateY(50%);
+  background: linear-gradient(90deg, #ff9f43, #ee764e);
+}
+
+.video-end::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(90deg, #ff6f00, #ffca28);
+  clip-path: polygon(0 30%, 50% 0, 100% 30%, 100% 100%, 0 100%);
+}
+
+.management-end::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 150%;
+  height: 100%;
+  border-radius: 50%;
+  transform: translateX(-50%) translateY(50%);
+  background: linear-gradient(90deg, #ff9f43, #ffd700);
+}
+
+/* Meet Our Management Section */
 .management-section {
   background: var(--dark-secondary);
   padding: 3rem 1rem;
   border-top: 4px solid var(--accent);
 }
 
+/* Extra top padding for management profiles */
 .management-grid {
+  margin-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
   max-width: 1200px;
-  margin: 2rem auto 0;
+  margin: 0 auto;
   padding: 0 1rem;
 }
 
-.management-card {
+/* Management Profiles */
+.management-profile {
   background: var(--dark);
   border: 2px solid var(--accent);
   border-radius: 12px;
-  padding: 1rem;
+  min-height: 400px;
+  padding: 1rem 0.75rem 1.5rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease 0.1s, box-shadow 0.3s ease 0.1s,
+    border-color 0.3s ease 0.1s;
+  margin-bottom: 2rem;
 }
 
-.management-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+.management-profile.chairman {
+  min-height: 550px;
+  padding: 1.5rem 1rem 2.5rem;
+  margin-bottom: 4rem;
 }
 
-.management-photo {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+.management-profile.vice-chairman,
+.management-profile.secretary {
+  min-height: 370px;
+  padding: 0.75rem 0.75rem 1.25rem;
+}
+
+.management-profile:hover {
+  transform: scale(1.05);
+  border-color: var(--primary);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.management-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--accent);
+  color: var(--secondary);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.management-profile:hover .management-badge {
+  opacity: 1;
+}
+
+.management-icon {
+  display: none;
 }
 
 .management-name {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: var(--primary);
 }
 
 .management-title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: var(--accent);
 }
 
 .management-info {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #ccc;
   line-height: 1.4;
+}
+
+.management-photo {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.management-profile:hover .management-photo {
+  transform: scale(0.95);
+}
+
+/* Desktop-specific ordering for management profiles */
+@media (min-width: 768px) {
+  .management-profile.vice-chairman {
+    order: 1;
+    transform: scale(0.95);
+  }
+  .management-profile.chairman {
+    order: 2;
+    transform: scale(1);
+  }
+  .management-profile.secretary {
+    order: 3;
+    transform: scale(0.95);
+  }
 }
 
 /* Animations */
@@ -455,9 +569,130 @@ nav a:hover {
   color: var(--primary);
   text-align: center;
   margin-bottom: 1rem;
-  font-family: "Manrope", sans-serif;
   letter-spacing: -0.03em;
   animation: fadeInUp 1s ease;
+}
+
+/* Footer Section Styles */
+.footer-section {
+  background: var(--dark-secondary);
+  padding: 2rem 1rem; /* Reduced vertical padding */
+  margin-top: 2rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.footer-logo .logo {
+  height: 60px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto 1.5rem;
+  padding: 0 1rem;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-item {
+  background: var(--dark);
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-5px);
+}
+
+.contact-item i {
+  font-size: 1.5rem;
+  color: var(--primary);
+  min-width: 40px;
+}
+
+.contact-item a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact-item a:hover {
+  color: var(--primary);
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.qr-code {
+  text-align: center;
+  padding: 0.75rem;
+}
+
+.qr-code img {
+  width: 120px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+.qr-code p {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+/* Footer Credits - Designed and Coded by */
+.footer-credits {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.footer-credits p {
+  margin: 0.25rem 0;
+}
+
+.footer-credits a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  border-bottom: 1px dashed var(--primary);
+  transition: color 0.3s ease;
+}
+
+.footer-credits a:hover {
+  color: var(--accent);
 }
 
 /* Mobile Responsiveness */
@@ -514,6 +749,18 @@ nav a:hover {
   }
   .management-grid {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .map-container {
+    height: 180px;
+  }
+  .contact-item {
+    padding: 0.75rem;
+  }
+  .footer-logo .logo {
+    height: 50px;
   }
 }
 
