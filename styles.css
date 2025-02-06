@@ -208,6 +208,27 @@ nav a:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* Brochure Download Button (New) */
+.brochure-download {
+  text-align: center;
+  margin: 1.5rem auto;
+}
+
+.brochure-download a {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary);
+  color: var(--secondary);
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.brochure-download a:hover {
+  background: var(--accent);
+}
+
 /* Students Grid */
 .students-grid {
   display: grid;
@@ -808,6 +829,7 @@ nav a:hover {
     padding: 0.5rem;
   }
 }
+
 /* Disable text selection */
 body {
   -webkit-user-select: none; /* Chrome/Safari */
