@@ -13,7 +13,7 @@ const students = [
   { name: "K  JOSHNA MADHURI", htno: "668154", marks: 283, max: 400 },
   { name: "P SRUJANA SAILI", htno: "908697", marks: 278, max: 400 },
   { name: "N S P S PRASANNA", htno: "908685", marks: 251, max: 400 },
-  { name: "P  VONODHINI", htno: "908695", marks: 248, max: 400 },
+  { name: "P  VINODHINI", htno: "908695", marks: 248, max: 400 },
   { name: "D N SAI SURENDRA", htno: "668150", marks: 235, max: 400 },
   { name: "G AASHU GEHLOT", htno: "908718", marks: 225, max: 400 },
   { name: "R LOVA MAHA NAVYA", htno: "908698", marks: 224, max: 400 },
@@ -42,7 +42,7 @@ const observer = new IntersectionObserver(
   { threshold: 0.1 }
 );
 
-// Populate the topper section with the student having maximum marks
+// Populate the topper section with the student having maximum marks.
 const populateTopper = () => {
   const topper = students.reduce((max, student) =>
     max.marks > student.marks ? max : student
@@ -50,7 +50,7 @@ const populateTopper = () => {
   const topperSpotlight = document.querySelector(".topper-spotlight");
   if (topperSpotlight) {
     topperSpotlight.innerHTML = `
-      <div class="topper-photo" style="background-image: url('${topper.name}.jpg');"></div>
+      <div class="topper-photo" style="background-image: url('./assets/topper.jpg');"></div>
       <div class="topper-details">
         <h2 class="topper-name">${topper.name}</h2>
         <div class="topper-marks">${topper.marks}</div>
@@ -62,7 +62,8 @@ const populateTopper = () => {
   }
 };
 
-// Populate CA Foundation students sorted by marks in descending order.
+// Populate CA Foundation students sorted by marks.
+// For each student, use a file naming convention: rank1.jpg, rank2.jpg, etc.
 const populateStudents = () => {
   const studentsGrid = document.querySelector(".students-grid");
   if (studentsGrid) {
@@ -76,9 +77,9 @@ const populateStudents = () => {
         else if (index === 2) card.classList.add("rank-3");
 
         card.innerHTML = `
-          <div class="student-photo" style="background-image: url('${
-            student.name
-          }.jpg'), url('default-avatar.jpg');">
+          <div class="student-photo" style="background-image: url('./assets/student photos/rank${
+            index + 1
+          }.jpg');">
             <div class="student-rank">${index + 1}</div>
           </div>
           <div class="student-info">
@@ -95,16 +96,19 @@ const populateStudents = () => {
 };
 
 // Populate Jr. MEC students (modern-styled cards) sorted by marks.
+// Now using a similar logic for photos with a naming convention: jr1.jpg, jr2.jpg, etc.
 const populateJrMecStudents = () => {
   const jrMecGrid = document.querySelector(".jr-mec-grid");
   if (jrMecGrid) {
     jrMecStudents
       .sort((a, b) => b.gainedMarks - a.gainedMarks)
-      .forEach((student) => {
+      .forEach((student, index) => {
         const card = document.createElement("div");
         card.className = "student-card jr-mec";
         card.innerHTML = `
-          <div class="student-photo" style="background-image: url('${student.name}.jpg'), url('default-avatar.jpg');"></div>
+          <div class="student-photo" style="background-image: url('./assets/MEC/jr${
+            index + 1
+          }.jpg');"></div>
           <div class="student-info">
             <h3 class="student-name">${student.name}</h3>
             <div class="student-marks">${student.gainedMarks}</div>
@@ -127,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const header = document.getElementById("header");
   window.addEventListener("scroll", () => {
     const currentScroll = window.pageYOffset;
-    // Hide header on scroll down if scrolled more than 200px; show on scroll up.
     header.style.transform =
       currentScroll > lastScroll && currentScroll > 200
         ? "translateY(-100%)"
@@ -155,4 +158,13 @@ document.addEventListener("DOMContentLoaded", () => {
       nav.classList.remove("active");
     }
   });
+});
+// Disable right-click context menu
+document.addEventListener("contextmenu", function (e) {
+  e.preventDefault();
+});
+
+// Optionally disable copy (this won’t stop someone determined enough)
+document.addEventListener("copy", function (e) {
+  e.preventDefault();
 });
