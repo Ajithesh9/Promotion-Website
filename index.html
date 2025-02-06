@@ -19,12 +19,23 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link rel="stylesheet" href="styles.css" />
-    <script defer data-domain="aditya-ca-academy.netlify.app" src="https://plausible.io/js/script.file-downloads.tagged-events.js"></script>
-<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
   </head>
   <body>
     <!-- Header -->
     <header id="header">
+      <script
+        defer
+        data-domain="aditya-ca-academy.netlify.app"
+        src="https://plausible.io/js/script.tagged-events.js"
+      ></script>
+      <script>
+        window.plausible =
+          window.plausible ||
+          function () {
+            (window.plausible.q = window.plausible.q || []).push(arguments);
+          };
+      </script>
+
       <div class="logo-container">
         <img
           src="assets/assets/logo.png"
@@ -61,6 +72,17 @@
     <section id="ca-foundation" class="results-section">
       <h2>CA Foundation Top Performers</h2>
       <div class="pass-highlight">100% Pass Percentage in CA Foundation</div>
+
+      <!-- Brochure Download (placed between pass-highlight and student cards) -->
+      <div class="brochure-download">
+        <a
+          href="assets/CA ACADEMY BRO NEW 2024 MAR.pdf"
+          download="CA ACADEMY BRO NEW 2024 MAR.pdf"
+        >
+          Click Here to Download the Brochure
+        </a>
+      </div>
+
       <div class="students-grid">
         <!-- CA Foundation student cards will be populated by JavaScript -->
       </div>
