@@ -829,7 +829,6 @@ nav a:hover {
     padding: 0.5rem;
   }
 }
-
 /* Disable text selection */
 body {
   -webkit-user-select: none; /* Chrome/Safari */
