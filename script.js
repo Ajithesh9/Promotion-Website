@@ -1,60 +1,79 @@
-netlify/functions/getStudents.js
-const { MongoClient } = require('mongodb');
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const response = await fetch("/.netlify/functions/getStudents");
+    const data = await response.json();
+    console.log("Fetched student data:", data);
 
-// Get your MongoDB connection string from environment variables
-const uri = process.env.MONGODB_URI;
+    // Populate the Topper Spotlight with the top student (first in sorted array)
+    populateTopper(data.caStudents);
 
-let cachedClient = null;
+    // Populate the CA Foundation student grid
+    populateStudents(data.caStudents);
 
-async function connectToDatabase() {
-  if (cachedClient && cachedClient.isConnected && cachedClient.isConnected()) {
-    return cachedClient;
+    // Populate the Jr MEC student grid
+    populateJrMecStudents(data.jrMecStudents);
+  } catch (error) {
+    console.error("Error fetching student data:", error);
   }
-  const client = await MongoClient.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  cachedClient = client;
-  return client;
+});
+
+function populateTopper(students) {
+  if (!students || students.length === 0) return;
+  // Assume the first student is the topper
+  const topper = students[0];
+  const topperSpotlight = document.querySelector(".topper-spotlight");
+  if (topperSpotlight) {
+    topperSpotlight.innerHTML = `
+      <div class="topper-photo" style="background-image: url('${topper.photo}');"></div>
+      <div class="topper-details">
+        <h2 class="topper-name">${topper.name}</h2>
+        <div class="topper-marks">${topper.marks}</div>
+        <p class="topper-max-marks">Out of ${topper.max} Marks</p>
+        <p class="topper-htno">HT No: ${topper.htno}</p>
+      </div>
+    `;
+  }
 }
 
-exports.handler = async (event, context) => {
-  try {
-    // Use the name of the database you created (e.g., "school")
-    const client = await connectToDatabase();
-    const db = client.db('ca_foundation_students');
-
-    // Fetch CA Foundation students sorted by marks (highest first)
-    let caStudents = await db
-      .collection('ca_foundation_students')
-      .find({})
-      .sort({ marks: -1 })
-      .toArray();
-
-    // For CA Foundation students, set the photo URL using the student's htno
-    caStudents = caStudents.map(student => ({
-      ...student,
-      photo: `./assets/student photos/${student.htno}.jpg`
-    }));
-
-    // Fetch Jr. MEC students sorted by gainedMarks (highest first)
-    let jrMecStudents = await db
-      .collection('jr_mec_students')
-      .find({})
-      .sort({ gainedMarks: -1 })
-      .toArray();
-
-    // For Jr. MEC students, set the photo URL based on their index: jr1.jpg, jr2.jpg, etc.
-    jrMecStudents = jrMecStudents.map((student, index) => ({
-      ...student,
-      photo: `./assets/student photos/MEC/jr${index + 1}.jpg`
-    }));
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ caStudents, jrMecStudents }),
-    };
-  } catch (error) {
-    return { statusCode: 500, body: error.toString() };
+function populateStudents(students) {
+  const studentsGrid = document.querySelector(".students-grid");
+  if (studentsGrid) {
+    studentsGrid.innerHTML = ""; // Clear any existing content
+    students.forEach((student) => {
+      const card = document.createElement("div");
+      card.className = "student-card";
+      card.innerHTML = `
+        <div class="student-photo" style="background-image: url('${student.photo}');">
+          <div class="student-rank">${student.htno}</div>
+        </div>
+        <div class="student-info">
+          <h3 class="student-name">${student.name}</h3>
+          <div class="student-marks">${student.marks}</div>
+          <p class="student-max-marks">Max Marks: ${student.max}</p>
+          <p class="ht-no">HT No: ${student.htno}</p>
+        </div>
+      `;
+      studentsGrid.appendChild(card);
+    });
   }
-};
+}
+
+function populateJrMecStudents(jrStudents) {
+  const jrMecGrid = document.querySelector(".jr-mec-grid");
+  if (jrMecGrid) {
+    jrMecGrid.innerHTML = ""; // Clear any existing content
+    jrStudents.forEach((student, index) => {
+      const card = document.createElement("div");
+      card.className = "student-card jr-mec";
+      card.innerHTML = `
+        <div class="student-photo" style="background-image: url('${student.photo}');"></div>
+        <div class="student-info">
+          <h3 class="student-name">${student.name}</h3>
+          <div class="student-marks">${student.gainedMarks}</div>
+          <p class="student-max-marks">Max Marks: ${student.maxMarks}</p>
+        </div>
+      `;
+      jrMecGrid.appendChild(card);
+    });
+  }
+}
