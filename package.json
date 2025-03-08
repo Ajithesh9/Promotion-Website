@@ -4,7 +4,8 @@
   "description": "Student results website with Netlify Functions and MongoDB.",
   "main": "index.html",
   "dependencies": {
-    "mongodb": "^4.2.0"
+    "dotenv": "^16.4.7",
+    "mongodb": "^4.17.2"
   },
   "scripts": {
     "start": "netlify dev",
