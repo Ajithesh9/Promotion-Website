@@ -1,7 +1,10 @@
+// netlify/functions/getStudents.js
+require("dotenv").config(); // Load environment variables from .env
 const { MongoClient } = require("mongodb");
 
 // Get your MongoDB connection string from environment variables
 const uri = process.env.MONGODB_URI;
+console.log("MONGODB_URI:", uri); // Debug: Verify the connection string
 
 let cachedClient = null;
 
@@ -19,34 +22,59 @@ async function connectToDatabase() {
 
 exports.handler = async (event, context) => {
   try {
-    // Use the name of the database you created (adjust if needed, e.g., "school")
+    // Change "ca_foundation_students" to your actual database name if needed.
     const client = await connectToDatabase();
     const db = client.db("ca_foundation_students");
 
-    // Fetch CA Foundation students sorted by marks (highest first)
-    let caStudents = await db
+    // --- CA Foundation Students ---
+    const caDocs = await db
       .collection("ca_foundation_students")
       .find({})
-      .sort({ marks: -1 })
       .toArray();
 
-    // For CA Foundation students, set the photo URL using the student's htno
+    // Flatten the data: if a document has a "ca_foundation_students" array, merge it.
+    let caStudents = [];
+    caDocs.forEach((doc) => {
+      if (
+        doc.ca_foundation_students &&
+        Array.isArray(doc.ca_foundation_students)
+      ) {
+        caStudents = caStudents.concat(doc.ca_foundation_students);
+      } else {
+        caStudents.push(doc);
+      }
+    });
+
+    // Sort by marks descending.
+    caStudents.sort((a, b) => b.marks - a.marks);
+
+    // Set photo URL using absolute path (relative to index.html)
     caStudents = caStudents.map((student) => ({
       ...student,
-      photo: `./assets/student photos/${student.htno}.jpg`,
+      photo: student.htno
+        ? `/assets/student-photos/${student.htno}.jpg`
+        : `/assets/student-photos/default.jpg`,
     }));
 
-    // Fetch Jr. MEC students sorted by gainedMarks (highest first)
-    let jrMecStudents = await db
-      .collection("jr_mec_students")
-      .find({})
-      .sort({ gainedMarks: -1 })
-      .toArray();
+    // --- Jr. MEC Students ---
+    const jrDocs = await db.collection("jr_mec_students").find({}).toArray();
 
-    // For Jr. MEC students, set the photo URL based on their index: jr1.jpg, jr2.jpg, etc.
+    let jrMecStudents = [];
+    jrDocs.forEach((doc) => {
+      if (doc.jr_mec_students && Array.isArray(doc.jr_mec_students)) {
+        jrMecStudents = jrMecStudents.concat(doc.jr_mec_students);
+      } else {
+        jrMecStudents.push(doc);
+      }
+    });
+
+    // Sort by gainedMarks descending.
+    jrMecStudents.sort((a, b) => b.gainedMarks - a.gainedMarks);
+
+    // Set photo URL based on index (jr1.jpg, jr2.jpg, etc.)
     jrMecStudents = jrMecStudents.map((student, index) => ({
       ...student,
-      photo: `./assets/student photos/MEC/jr${index + 1}.jpg`,
+      photo: `/assets/MEC/jr${index + 1}.jpg`,
     }));
 
     return {
@@ -54,6 +82,10 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ caStudents, jrMecStudents }),
     };
   } catch (error) {
-    return { statusCode: 500, body: error.toString() };
+    console.error("Error in getStudents function:", error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: error.message }),
+    };
   }
 };
