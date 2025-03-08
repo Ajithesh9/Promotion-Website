@@ -1,4 +1,4 @@
-// netlify/functions/getStudents.js
+netlify/functions/getStudents.js
 const { MongoClient } = require('mongodb');
 
 // Get your MongoDB connection string from environment variables
