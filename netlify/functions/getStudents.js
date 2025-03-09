@@ -14,36 +14,25 @@ async function connectToDatabase() {
     return cachedClient;
   }
   console.log("Connecting to MongoDB...");
-  try {
-    const client = await MongoClient.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      connectTimeoutMS: 10000 // Optional: 10 second timeout
-    });
-    cachedClient = client;
-    console.log("Connected to MongoDB");
-    return client;
-  } catch (err) {
-    console.error("MongoDB connection error:", err);
-    throw err;
-  }
+  const client = await MongoClient.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  cachedClient = client;
+  console.log("Connected to MongoDB");
+  return client;
 }
 
 exports.handler = async (event, context) => {
   try {
     const client = await connectToDatabase();
-    if (!client) {
-      throw new Error("Failed to connect to the database.");
-    }
-    
-    // IMPORTANT: Ensure that the database name matches your imported data.
+    // Ensure this database name matches your imported data.
     const db = client.db("ca_foundation_students");
     console.log("Using database:", db.databaseName);
 
     // --- CA Foundation Students ---
     const caDocs = await db.collection("ca_foundation_students").find({}).toArray();
     console.log("Fetched CA Foundation docs:", caDocs);
-    
     let caStudents = [];
     caDocs.forEach(doc => {
       if (doc.ca_foundation_students && Array.isArray(doc.ca_foundation_students)) {
@@ -55,16 +44,15 @@ exports.handler = async (event, context) => {
     caStudents.sort((a, b) => b.marks - a.marks);
     caStudents = caStudents.map(student => ({
       ...student,
-      // Use relative path without leading slash:
-      photo: student.htno 
-        ? `assets/student-photos/${student.htno}.jpg`
-        : `assets/student-photos/default.jpg`
+      // Use the folder "assets/student photos/" exactly as deployed.
+      photo: student.htno
+        ? `assets/student photos/${student.htno}.jpg`
+        : `assets/student photos/default.jpg`
     }));
 
     // --- Jr. MEC Students ---
     const jrDocs = await db.collection("jr_mec_students").find({}).toArray();
     console.log("Fetched Jr MEC docs:", jrDocs);
-
     let jrMecStudents = [];
     jrDocs.forEach(doc => {
       if (doc.jr_mec_students && Array.isArray(doc.jr_mec_students)) {
@@ -76,13 +64,11 @@ exports.handler = async (event, context) => {
     jrMecStudents.sort((a, b) => b.gainedMarks - a.gainedMarks);
     jrMecStudents = jrMecStudents.map((student, index) => ({
       ...student,
-      // Use relative path without leading slash:
       photo: `assets/MEC/jr${index + 1}.jpg`
     }));
 
     console.log("Final CA Foundation students count:", caStudents.length);
     console.log("Final Jr MEC students count:", jrMecStudents.length);
-
     return {
       statusCode: 200,
       body: JSON.stringify({ caStudents, jrMecStudents }),
