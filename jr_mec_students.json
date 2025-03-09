@@ -1,0 +1,29 @@
+{
+  "jr_mec_students": [
+    {
+      "name": "C N S KARTEEK",
+      "gainedMarks": 492,
+      "maxMarks": 500
+    },
+    {
+      "name": "CH T SRI LAKSHMI",
+      "gainedMarks": 490,
+      "maxMarks": 500
+    },
+    {
+      "name": "C S MADHURI",
+      "gainedMarks": 490,
+      "maxMarks": 500
+    },
+    {
+      "name": "B V V V V U S K Tejaswini",
+      "gainedMarks": 488,
+      "maxMarks": 500
+    },
+    {
+      "name": "P SAI MALLIK",
+      "gainedMarks": 487,
+      "maxMarks": 500
+    }
+  ]
+}
