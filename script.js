@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     populateTopper(data.caStudents);
     populateStudents(data.caStudents);
     populateJrMecStudents(data.jrMecStudents);
+    setupLazyLoad();
   } catch (error) {
     console.error("Error fetching student data:", error);
   }
@@ -39,9 +40,9 @@ function populateTopper(students) {
     console.error("Topper spotlight element not found");
     return;
   }
-  // Use a relative path for the topper image (remove the leading slash)
+  // Use the fixed topper image "assets/topper.jpg"
   topperSpotlight.innerHTML = `
-    <div class="topper-photo" style="background-image: url('assets/student-photos/topper1.jpg');"></div>
+    <div class="topper-photo" style="background-image: url('assets/topper.jpg');"></div>
     <div class="topper-details">
       <h2 class="topper-name">${topper.name}</h2>
       <div class="topper-marks">${topper.marks}</div>
@@ -49,22 +50,20 @@ function populateTopper(students) {
       <p class="topper-htno">HT No: ${topper.htno}</p>
     </div>
   `;
-  // Ensure the container is visible
   topperSpotlight.style.opacity = "1";
   topperSpotlight.classList.add("visible");
   console.log("Topper spotlight updated");
 }
 
 function populateStudents(students) {
-  // Select the CA Foundation grid: the div with class "students-grid" inside #ca-foundation.
+  // Select the CA Foundation grid within the section with id "ca-foundation"
   const caGrid = document.querySelector("#ca-foundation .students-grid");
   if (!caGrid) {
     console.error("CA Foundation students grid not found");
     return;
   }
-  caGrid.innerHTML = ""; // Clear any placeholder content
-
-  // Use the array index (index + 1) as the student rank.
+  caGrid.innerHTML = "";
+  // Use (index+1) as rank instead of hall ticket
   students.forEach((student, index) => {
     const card = document.createElement("div");
     card.className = "student-card";
@@ -79,7 +78,7 @@ function populateStudents(students) {
         <p class="ht-no">HT No: ${student.htno}</p>
       </div>
     `;
-    card.style.opacity = "1"; // Force visibility
+    card.style.opacity = "1";
     card.classList.add("visible");
     caGrid.appendChild(card);
   });
@@ -87,14 +86,13 @@ function populateStudents(students) {
 }
 
 function populateJrMecStudents(jrStudents) {
-  // Select the Jr. MEC grid: the div with class "students-grid jr-mec-grid" inside #jr-mec.
+  // Select the Jr. MEC grid inside the section with id "jr-mec"
   const jrGrid = document.querySelector("#jr-mec .jr-mec-grid");
   if (!jrGrid) {
     console.error("Jr MEC grid not found");
     return;
   }
-  jrGrid.innerHTML = ""; // Clear any placeholder content
-
+  jrGrid.innerHTML = "";
   jrStudents.forEach((student, index) => {
     const card = document.createElement("div");
     card.className = "student-card jr-mec";
@@ -111,4 +109,37 @@ function populateJrMecStudents(jrStudents) {
     jrGrid.appendChild(card);
   });
   console.log("Jr MEC grid populated with", jrStudents.length, "students");
+}
+
+function setupLazyLoad() {
+  const lazyElements = document.querySelectorAll(".lazy");
+  if ("IntersectionObserver" in window) {
+    let observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const src = el.getAttribute("data-src");
+          if (src) {
+            el.style.backgroundImage = `url('${src}')`;
+            el.removeAttribute("data-src");
+          }
+          el.classList.add("visible");
+          observer.unobserve(el);
+        }
+      });
+    }, {
+      rootMargin: "0px 0px 50px 0px",
+      threshold: 0
+    });
+    lazyElements.forEach(el => observer.observe(el));
+  } else {
+    lazyElements.forEach(el => {
+      const src = el.getAttribute("data-src");
+      if (src) {
+        el.style.backgroundImage = `url('${src}')`;
+        el.removeAttribute("data-src");
+      }
+      el.classList.add("visible");
+    });
+  }
 }
