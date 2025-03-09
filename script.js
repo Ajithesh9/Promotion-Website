@@ -39,8 +39,9 @@ function populateTopper(students) {
     console.error("Topper spotlight element not found");
     return;
   }
+  // Use a relative path for the topper image (remove the leading slash)
   topperSpotlight.innerHTML = `
-    <div class="topper-photo" style="background-image: url('/assets/topper1.jpg');"></div>
+    <div class="topper-photo" style="background-image: url('assets/student-photos/topper1.jpg');"></div>
     <div class="topper-details">
       <h2 class="topper-name">${topper.name}</h2>
       <div class="topper-marks">${topper.marks}</div>
@@ -68,9 +69,7 @@ function populateStudents(students) {
     const card = document.createElement("div");
     card.className = "student-card";
     card.innerHTML = `
-      <div class="student-photo" style="background-image: url('${
-        student.photo
-      }');">
+      <div class="student-photo" style="background-image: url('${student.photo}');">
         <div class="student-rank">${index + 1}</div>
       </div>
       <div class="student-info">
@@ -95,7 +94,7 @@ function populateJrMecStudents(jrStudents) {
     return;
   }
   jrGrid.innerHTML = ""; // Clear any placeholder content
- 
+
   jrStudents.forEach((student, index) => {
     const card = document.createElement("div");
     card.className = "student-card jr-mec";
