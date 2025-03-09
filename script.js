@@ -21,9 +21,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     populateTopper(data.caStudents);
     populateStudents(data.caStudents);
     populateJrMecStudents(data.jrMecStudents);
-    setupLazyLoad();
   } catch (error) {
     console.error("Error fetching student data:", error);
+  }
+
+  // Mobile Menu Toggle
+  const mobileToggle = document.querySelector(".mobile-menu-toggle");
+  const nav = document.querySelector("nav");
+  if (mobileToggle && nav) {
+    mobileToggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      nav.classList.toggle("active");
+      console.log("Mobile menu toggled:", nav.classList.contains("active"));
+    });
+    // Optional: close the menu if clicking outside
+    document.addEventListener("click", (e) => {
+      if (!nav.contains(e.target) && !mobileToggle.contains(e.target)) {
+        nav.classList.remove("active");
+      }
+    });
+  } else {
+    console.error("Mobile menu toggle or nav not found");
   }
 });
 
@@ -40,7 +58,7 @@ function populateTopper(students) {
     console.error("Topper spotlight element not found");
     return;
   }
-  // Use the fixed topper image "assets/topper.jpg"
+  // Use a fixed topper image using a relative path.
   topperSpotlight.innerHTML = `
     <div class="topper-photo" style="background-image: url('assets/topper.jpg');"></div>
     <div class="topper-details">
@@ -56,19 +74,21 @@ function populateTopper(students) {
 }
 
 function populateStudents(students) {
-  // Select the CA Foundation grid within the section with id "ca-foundation"
+  // Select the CA Foundation grid: the div with class "students-grid" inside #ca-foundation.
   const caGrid = document.querySelector("#ca-foundation .students-grid");
   if (!caGrid) {
     console.error("CA Foundation students grid not found");
     return;
   }
   caGrid.innerHTML = "";
-  // Use (index+1) as rank instead of hall ticket
+  // Use the array index (index + 1) as the student rank.
   students.forEach((student, index) => {
     const card = document.createElement("div");
     card.className = "student-card";
     card.innerHTML = `
-      <div class="student-photo" style="background-image: url('${student.photo}');">
+      <div class="student-photo" style="background-image: url('${
+        student.photo
+      }');">
         <div class="student-rank">${index + 1}</div>
       </div>
       <div class="student-info">
@@ -86,7 +106,7 @@ function populateStudents(students) {
 }
 
 function populateJrMecStudents(jrStudents) {
-  // Select the Jr. MEC grid inside the section with id "jr-mec"
+  // Select the Jr. MEC grid: the div with class "students-grid jr-mec-grid" inside #jr-mec.
   const jrGrid = document.querySelector("#jr-mec .jr-mec-grid");
   if (!jrGrid) {
     console.error("Jr MEC grid not found");
@@ -114,26 +134,29 @@ function populateJrMecStudents(jrStudents) {
 function setupLazyLoad() {
   const lazyElements = document.querySelectorAll(".lazy");
   if ("IntersectionObserver" in window) {
-    let observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const src = el.getAttribute("data-src");
-          if (src) {
-            el.style.backgroundImage = `url('${src}')`;
-            el.removeAttribute("data-src");
+    let observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const src = el.getAttribute("data-src");
+            if (src) {
+              el.style.backgroundImage = `url('${src}')`;
+              el.removeAttribute("data-src");
+            }
+            el.classList.add("visible");
+            observer.unobserve(el);
           }
-          el.classList.add("visible");
-          observer.unobserve(el);
-        }
-      });
-    }, {
-      rootMargin: "0px 0px 50px 0px",
-      threshold: 0
-    });
-    lazyElements.forEach(el => observer.observe(el));
+        });
+      },
+      {
+        rootMargin: "0px 0px 50px 0px",
+        threshold: 0,
+      }
+    );
+    lazyElements.forEach((el) => observer.observe(el));
   } else {
-    lazyElements.forEach(el => {
+    lazyElements.forEach((el) => {
       const src = el.getAttribute("data-src");
       if (src) {
         el.style.backgroundImage = `url('${src}')`;
