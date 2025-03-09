@@ -95,7 +95,7 @@ function populateJrMecStudents(jrStudents) {
     return;
   }
   jrGrid.innerHTML = ""; // Clear any placeholder content
-
+ 
   jrStudents.forEach((student, index) => {
     const card = document.createElement("div");
     card.className = "student-card jr-mec";
