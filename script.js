@@ -60,7 +60,7 @@ function populateTopper(students) {
   }
   // Use a fixed topper image using a relative path.
   topperSpotlight.innerHTML = `
-    <div class="topper-photo" style="background-image: url('assets/topper.jpg');"></div>
+    <div class="topper-photo" style="background-image: url('assets/topper.webp');"></div>
     <div class="topper-details">
       <h2 class="topper-name">${topper.name}</h2>
       <div class="topper-marks">${topper.marks}</div>
