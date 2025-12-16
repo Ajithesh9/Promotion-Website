@@ -1,4 +1,6 @@
-import React, { useRef } from 'react';
+import Lenis from 'lenis';
+import React, { useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import StudentCard from './components/StudentCard';
 import TopperSpotlight from './components/TopperSpotlight';
@@ -29,6 +31,41 @@ const managementData = [
   }
 ];
 
+// REFINED HERO ANIMATIONS
+const heroContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const heroItem = {
+  hidden: { y: 20, opacity: 0, filter: 'blur(5px)' },
+  visible: {
+    y: 0,
+    opacity: 1,
+    filter: 'blur(0px)',
+    transition: { duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }
+  }
+};
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 }
+  }
+};
+
 function App() {
   const caStudents = getCAStudents();
   const mecStudents = getMecStudents();
@@ -38,6 +75,30 @@ function App() {
   const caScrollRef = useRef(null);
   const mecScrollRef = useRef(null);
   const cecScrollRef = useRef(null);
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 0.7,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1.5,
+      smoothTouch: false,
+      touchMultiplier: 2,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   const scroll = (direction, ref) => {
     if (ref.current) {
@@ -55,36 +116,72 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen selection:bg-primary selection:text-white overflow-x-hidden relative">
+    <div className="min-h-screen selection:bg-primary selection:text-white overflow-x-hidden relative bg-background">
+
+      {/* BACKGROUND DOTS - FIXED */}
+      {/* 1. Increased base opacity to 0.15 so dots are visible. */}
+      {/* 2. Reduced blur to 8px and added scale animation to fix banding issues. */}
+      <motion.div
+        initial={{ opacity: 0, scale: 1.1, filter: 'blur(8px)' }}
+        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="fixed inset-0 z-0 pointer-events-none"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(#ee764e_1.5px,transparent_1.5px)] [background-size:32px_32px] opacity-[0.15]"></div>
+      </motion.div>
+
       <Navbar />
 
       {/* HERO SECTION */}
       <header id="home" className="pt-32 pb-16 px-6 text-center max-w-7xl mx-auto relative z-10">
-        <div className="inline-block border border-primary/30 bg-primary/10 px-4 py-1 rounded-full mb-6">
-          <span className="text-primary font-bold text-xs uppercase tracking-widest">Aditya CA Academy</span>
-        </div>
-        <h1 className="hero-title">
-          Forging the Next Generation of <br />
-          <span className="text-primary">Chartered Accountants</span>
-        </h1>
-        <p className="hero-subtitle">
-          Join an institution where discipline meets excellence. With 100% pass percentages and state-wide ranks, we turn aspirations into achievements.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="#ca-foundation" className="btn-primary">
-            View Results <ChevronRight size={18} />
-          </a>
-          <a href="#contact" className="btn-secondary">
-            Contact Campus
-          </a>
-        </div>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={heroContainer}
+          className="flex flex-col items-center"
+        >
+          {/* Badge */}
+          <motion.div variants={heroItem} className="inline-block border border-primary/30 bg-primary/10 px-4 py-1 rounded-full mb-6 backdrop-blur-sm">
+            <span className="text-primary font-bold text-xs uppercase tracking-widest">Aditya CA Academy</span>
+          </motion.div>
+
+          {/* Title */}
+          <motion.h1 variants={heroItem} className="hero-title mb-6">
+            Forging the Next Generation of <br />
+            <span className="text-primary relative inline-block">
+              Chartered Accountants
+              <svg className="absolute w-full h-3 -bottom-1 left-0 text-primary opacity-40" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.00025 6.99997C25.7501 2.99999 83.25 -3.00001 198 4.99997" stroke="currentColor" strokeWidth="3" /></svg>
+            </span>
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p variants={heroItem} className="hero-subtitle mb-8 max-w-2xl">
+            Join an institution where discipline meets excellence. With 100% pass percentages and state-wide ranks, we turn aspirations into achievements.
+          </motion.p>
+
+          {/* Buttons */}
+          <motion.div variants={heroItem} className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#ca-foundation" className="btn-primary group">
+              View Results <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a href="#contact" className="btn-secondary">
+              Contact Campus
+            </a>
+          </motion.div>
+        </motion.div>
       </header>
 
       <TopperSpotlight topper={topper} />
 
       {/* --- CA FOUNDATION SECTION --- */}
-      <section id="ca-foundation" className="py-16 border-t border-border/30 bg-background/95">
-        <div className="max-w-7xl mx-auto px-6 relative">
+      <section id="ca-foundation" className="py-16 border-t border-border/30 bg-background/95 relative z-10">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={fadeInUp}
+          className="max-w-7xl mx-auto px-6 relative"
+        >
           <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <div className="section-title">
@@ -99,7 +196,6 @@ function App() {
             </div>
           </div>
 
-          {/* Corrected: Removed 'group' class to fix ghost hovering */}
           <div className="relative">
             <div className="carousel-container" ref={caScrollRef}>
               {caStudents.map((student, index) => (
@@ -107,12 +203,18 @@ function App() {
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* --- JR MEC SECTION --- */}
-      <section id="jr-mec" className="py-16 border-t border-border/30 bg-background/95 relative">
-        <div className="max-w-7xl mx-auto px-6 relative">
+      <section id="jr-mec" className="py-16 border-t border-border/30 bg-background/95 relative z-10">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={fadeInUp}
+          className="max-w-7xl mx-auto px-6 relative"
+        >
           <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <div className="section-title">
@@ -132,12 +234,18 @@ function App() {
               <StudentCard key={index} student={student} rank={index + 1} type="MEC" />
             ))}
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* --- JR CEC SECTION --- */}
-      <section id="jr-cec" className="py-16 border-t border-border/30 bg-background/95 relative">
-        <div className="max-w-7xl mx-auto px-6 relative">
+      <section id="jr-cec" className="py-16 border-t border-border/30 bg-background/95 relative z-10">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={fadeInUp}
+          className="max-w-7xl mx-auto px-6 relative"
+        >
           <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <div className="section-title">
@@ -153,12 +261,18 @@ function App() {
               <StudentCard key={index} student={student} rank={index + 1} type="CEC" />
             ))}
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* --- VIDEO HIGHLIGHTS --- */}
-      <section id="highlights" className="py-16 bg-surface border-y border-border">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      <section id="highlights" className="py-16 bg-surface border-y border-border relative z-10">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={fadeInUp}
+          className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center"
+        >
           <div>
             <div className="flex items-center gap-2 mb-4">
               <PlayCircle className="text-primary" size={24} />
@@ -183,16 +297,34 @@ function App() {
               ></iframe>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* --- MANAGEMENT --- */}
-      <section id="management" className="py-16 px-6 bg-surface border-t border-border">
+      <section id="management" className="py-16 px-6 bg-surface border-t border-border relative z-10">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">Visionary Leadership</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl font-bold text-white text-center mb-12"
+          >
+            Visionary Leadership
+          </motion.h2>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid md:grid-cols-3 gap-8"
+          >
             {managementData.map((leader, index) => (
-              <div key={index} className="management-card group">
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="management-card group"
+              >
                 <div className="flex items-center gap-4 mb-6">
                   <img
                     src={leader.image}
@@ -210,26 +342,22 @@ function App() {
                 <div className="flex justify-end">
                   <Quote size={20} className="text-border" />
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      <footer id="contact" className="bg-black py-12 border-t border-border">
-        {/* Updated Grid: Changed to 12-column grid on desktop for better spacing control */}
+      <footer id="contact" className="bg-black py-12 border-t border-border relative z-10">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
 
-          {/* Logo Section - lg:col-span-3 (25%) */}
           <div className="lg:col-span-3">
-            {/* FIX 1: Added 'w-auto' and 'object-contain' to prevent dragging/distortion */}
             <img src="/assets/assets/logo.png" className="h-24 w-auto object-contain mb-6 opacity-90 brightness-110" alt="Aditya Logo" />
             <p className="text-muted text-sm leading-relaxed">
               Aditya CA Academy is dedicated to shaping the future of finance professionals through rigorous training and holistic development.
             </p>
           </div>
 
-          {/* Contact Section - lg:col-span-3 (25%) */}
           <div className="lg:col-span-3">
             <h4 className="text-white font-bold mb-6">Get in Touch</h4>
             <ul className="space-y-4 text-sm text-muted">
@@ -250,8 +378,6 @@ function App() {
             </ul>
           </div>
 
-          {/* QR Code - lg:col-span-2 (16.6%) */}
-          {/* FIX 2: Reduced column span to 2 to minimize empty space between QR and Map */}
           <div className="flex flex-col items-start lg:col-span-2">
             <h4 className="text-white font-bold mb-4">Scan Contact</h4>
             <div className="bg-white p-2 rounded-lg">
@@ -259,8 +385,6 @@ function App() {
             </div>
           </div>
 
-          {/* Map Section - lg:col-span-4 (33.3%) */}
-          {/* Increased span to 4 to take up remaining space, bringing it closer to QR */}
           <div className="lg:col-span-4 flex flex-col">
             <h4 className="text-white font-bold mb-4">Locate Us</h4>
             <div className="rounded-xl overflow-hidden border border-border shadow-lg h-full min-h-[200px]">

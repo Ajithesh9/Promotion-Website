@@ -7,13 +7,18 @@ const TopperSpotlight = ({ topper }) => {
 
     return (
         <section className="relative max-w-5xl mx-auto px-6 mb-16 z-10 mt-8">
-            {/* Background Glow */}
-            <div className="absolute inset-0 -z-10 bg-primary/20 rounded-full opacity-30 transform scale-90 blur-[100px] pointer-events-none"></div>
+            {/* SIMPLE TOP GLOW (Requested Fix)
+               - Visible mostly on the top side
+               - Bleeds into the section above
+               - Subtle and performance friendly 
+            */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[150px] bg-primary/30 blur-[100px] -z-10 rounded-full mix-blend-screen pointer-events-none"></div>
 
             <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
+                initial={{ y: 50, opacity: 0, scale: 0.9 }}
+                whileInView={{ y: 0, opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
                 className="bg-surface border border-border rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row relative max-h-[700px]"
             >
                 {/* Decorative Watermark */}
@@ -22,7 +27,6 @@ const TopperSpotlight = ({ topper }) => {
                 </div>
 
                 {/* Photo Section */}
-                {/* CHANGED: Increased width to 1/2 (50%) and added p-4 for the 'gap' effect */}
                 <div className="relative min-h-[350px] md:w-1/2 md:min-h-full p-4">
                     {/* Inner wrapper for rounded corners */}
                     <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/5 shadow-inner">
@@ -35,7 +39,6 @@ const TopperSpotlight = ({ topper }) => {
                 </div>
 
                 {/* Details Section */}
-                {/* CHANGED: Adjusted width to 1/2 to match the photo extension */}
                 <div className="p-8 flex flex-col justify-center relative z-20 md:w-1/2 md:pl-10">
                     <div className="mb-8">
                         <div className="flex items-center gap-2 text-primary mb-2 font-bold uppercase tracking-widest text-xs select-none">

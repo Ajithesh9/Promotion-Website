@@ -4,6 +4,11 @@ import { Crown } from 'lucide-react';
 const StudentCard = ({ student, rank, type }) => {
     const isTopRanker = rank <= 3;
 
+    // Calculate Percentage for the Progress Bar
+    const marks = type === 'CA' ? student.marks : student.gainedMarks;
+    const max = type === 'CA' ? student.max : student.maxMarks;
+    const percentage = Math.round((marks / max) * 100);
+
     const getRankStyle = (r) => {
         if (r === 1) return "bg-yellow-500/20 text-yellow-500 border-yellow-500/50";
         if (r === 2) return "bg-slate-400/20 text-slate-300 border-slate-400/50";
@@ -12,9 +17,7 @@ const StudentCard = ({ student, rank, type }) => {
     };
 
     return (
-        // PERFORMANCE FIX: Changed transition-all to specific properties to reduce paint cost.
-        // Removed transition-all, added hover transform logic.
-        <div className="group relative bg-surface border border-border hover:border-primary/50 transition duration-300 rounded-xl overflow-hidden snap-start flex flex-col
+        <div className="group relative bg-surface border-2 border-border hover:border-primary/50 transition duration-300 rounded-xl overflow-hidden snap-start flex flex-col
         min-w-[85%] md:min-w-[calc(50%-0.75rem)] lg:min-w-[calc(25%-1.125rem)] shadow-lg hover:shadow-xl hover:-translate-y-1 will-change-transform">
 
             {/* Top Section: Identity */}
@@ -30,7 +33,6 @@ const StudentCard = ({ student, rank, type }) => {
 
                 {/* Photo */}
                 <div className="w-28 h-28 mb-4 relative mt-2">
-                    {/* PERFORMANCE FIX: Added loading='lazy' and decoding='async' */}
                     <img
                         src={student.photo || "/assets/assets/student-sample.png"}
                         alt={student.name}
@@ -50,28 +52,46 @@ const StudentCard = ({ student, rank, type }) => {
             {/* Divider Line */}
             <div className="h-px w-full bg-border/50"></div>
 
-            {/* Bottom Section: Performance Stats & ID */}
+            {/* Bottom Section: Performance Stats & ID/Progress */}
             <div className="bg-surface p-4 flex items-center justify-between">
-                {/* Marks */}
+                {/* Left Side: Marks */}
                 <div className="flex flex-col">
                     <span className="text-[10px] uppercase tracking-widest text-muted font-bold">Score</span>
                     <div className="flex items-baseline gap-1">
                         <span className="text-3xl font-bold text-primary font-mono">
-                            {type === 'CA' ? student.marks : student.gainedMarks}
+                            {marks}
                         </span>
                         <span className="text-xs text-muted/50 font-medium">
-                            / {type === 'CA' ? student.max : student.maxMarks}
+                            / {max}
                         </span>
                     </div>
                 </div>
 
-                {/* HT NO */}
-                {student.htno && (
+                {/* Right Side: HT NO (for CA) OR Vertical Progress Bar (for MEC/CEC) */}
+                {student.htno ? (
                     <div className="text-right">
                         <span className="text-[10px] uppercase tracking-widest text-muted font-bold block">HT.NO</span>
                         <span className="text-sm font-mono text-white/80 tracking-wider">
                             {student.htno}
                         </span>
+                    </div>
+                ) : (
+                    // VERTICAL PROGRESS BAR for MEC/CEC
+                    // Updated: Tighter gap, bigger text (text-sm), white/80 color, proper centering
+                    <div className="flex items-center gap-2">
+                        {/* Percentage Label */}
+                        <span className="text-sm font-bold text-white/80 font-mono leading-none">
+                            {percentage}%
+                        </span>
+
+                        {/* The Bar Container */}
+                        <div className="h-8 w-1.5 bg-primary/20 rounded-full relative overflow-hidden flex items-end">
+                            {/* The Filled Portion */}
+                            <div
+                                className="w-full bg-primary rounded-full transition-all duration-500"
+                                style={{ height: `${percentage}%` }}
+                            ></div>
+                        </div>
                     </div>
                 )}
             </div>
