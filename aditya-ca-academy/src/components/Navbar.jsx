@@ -15,16 +15,18 @@ const Navbar = () => {
         { name: 'Home', href: '#home' },
         { name: 'CA Foundation', href: '#ca-foundation' },
         { name: 'Jr. MEC', href: '#jr-mec' },
-        { name: 'Jr. CEC', href: '#jr-cec' }, // [ADDED]
+        { name: 'Jr. CEC', href: '#jr-cec' },
         { name: 'Highlights', href: '#highlights' },
         { name: 'Management', href: '#management' },
     ];
 
     return (
-        <nav className={`fixed w-full z-50 top-0 transition-all duration-300 border-b ${scrolled ? 'bg-brand-dark/95 border-brand-border shadow-lg backdrop-blur-md py-3' : 'bg-transparent border-transparent py-5'}`}>
+        // Reduced padding (py-2) to accommodate larger logo without increasing Navbar height
+        <nav className={`fixed w-full z-50 top-0 transition-all duration-300 border-b ${scrolled ? 'bg-brand-dark/95 border-brand-border shadow-lg backdrop-blur-md py-2' : 'bg-transparent border-transparent py-2'}`}>
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
                 <a href="#" className="flex items-center gap-2">
-                    <img src="/assets/assets/logo.png" className="h-10 md:h-12 brightness-110" alt="Aditya Logo" />
+                    {/* Increased Logo Size: h-14 (mobile) to h-16 (desktop) */}
+                    <img src="/assets/assets/logo.png" className="h-16 md:h-18 brightness-110" alt="Aditya Logo" />
                 </a>
 
                 {/* Desktop Menu */}

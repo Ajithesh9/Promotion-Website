@@ -6,7 +6,6 @@ import { getCAStudents, getMecStudents, getCECStudents } from './data/mockData';
 import { Phone, MapPin, Quote, ChevronRight, PlayCircle, ArrowLeft, ArrowRight } from 'lucide-react';
 
 const managementData = [
-  // ... (Keep existing management data)
   {
     name: "Dr. N. Sesha Reddy",
     title: "Chairman",
@@ -33,13 +32,12 @@ const managementData = [
 function App() {
   const caStudents = getCAStudents();
   const mecStudents = getMecStudents();
-  const cecStudents = getCECStudents(); // [NEW]
+  const cecStudents = getCECStudents();
   const topper = caStudents.length > 0 ? caStudents[0] : null;
 
-  // Refs
   const caScrollRef = useRef(null);
   const mecScrollRef = useRef(null);
-  const cecScrollRef = useRef(null); // [NEW]
+  const cecScrollRef = useRef(null);
 
   const scroll = (direction, ref) => {
     if (ref.current) {
@@ -57,11 +55,11 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen selection:bg-brand-orange selection:text-white overflow-x-hidden">
+    <div className="min-h-screen selection:bg-brand-orange selection:text-white overflow-x-hidden relative">
       <Navbar />
 
-      {/* HEADER & TOPPER SECTIONS (Keep as is) */}
-      <header id="home" className="pt-32 pb-16 px-6 text-center max-w-7xl mx-auto">
+      {/* HERO SECTION */}
+      <header id="home" className="pt-32 pb-16 px-6 text-center max-w-7xl mx-auto relative z-10">
         <div className="inline-block border border-brand-orange/30 bg-brand-orange/10 px-4 py-1 rounded-full mb-6">
           <span className="text-brand-orange font-bold text-xs uppercase tracking-widest">Aditya CA Academy</span>
         </div>
@@ -85,96 +83,95 @@ function App() {
       <TopperSpotlight topper={topper} />
 
       {/* --- CA FOUNDATION SECTION --- */}
-      <section id="ca-foundation" className="py-12 border-t border-brand-border/30">
+      {/* Background is full width because max-w-7xl is INSIDE */}
+      <section id="ca-foundation" className="py-16 border-t border-brand-border/30 bg-brand-dark/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6 relative">
-          <div className="mb-2">
-            <div className="section-title">
-              <div className="h-8 w-1 bg-brand-orange rounded-full"></div>
-              <h2>CA Foundation Results</h2>
+          <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="section-title">
+                <div className="h-8 w-1.5 bg-brand-orange rounded-sm"></div>
+                <h2>CA Foundation Results</h2>
+              </div>
+              <p className="section-desc">Setting benchmarks with outstanding scores.</p>
             </div>
-            <p className="section-desc">Swipe to explore our top performers.</p>
+            <div className="hidden md:flex gap-2">
+              <button onClick={() => scroll('left', caScrollRef)} className="w-10 h-10 flex items-center justify-center border border-brand-border rounded hover:bg-brand-orange hover:text-white transition-colors"><ArrowLeft size={20} /></button>
+              <button onClick={() => scroll('right', caScrollRef)} className="w-10 h-10 flex items-center justify-center border border-brand-border rounded hover:bg-brand-orange hover:text-white transition-colors"><ArrowRight size={20} /></button>
+            </div>
           </div>
 
           <div className="relative group">
-            <button onClick={() => scroll('left', caScrollRef)} className="nav-arrow-btn -left-4 lg:-left-16" aria-label="Scroll Left">
-              <ArrowLeft size={20} />
-            </button>
             <div className="carousel-container" ref={caScrollRef}>
               {caStudents.map((student, index) => (
                 <StudentCard key={student.htno || index} student={student} rank={index + 1} type="CA" />
               ))}
             </div>
-            <button onClick={() => scroll('right', caScrollRef)} className="nav-arrow-btn -right-4 lg:-right-16" aria-label="Scroll Right">
-              <ArrowRight size={20} />
-            </button>
           </div>
         </div>
       </section>
 
       {/* --- JR MEC SECTION --- */}
-      <section id="jr-mec" className="py-16 max-w-7xl mx-auto px-6 relative border-t border-brand-border/30">
-        <div className="mb-2">
-          <div className="section-title">
-            <div className="h-8 w-1 bg-blue-500 rounded-full"></div>
-            <h2>Jr. MEC Highlights</h2>
+      {/* FIXED: Removed max-w-7xl from section so background is full width */}
+      <section id="jr-mec" className="py-16 border-t border-brand-border/30 bg-brand-dark/50 backdrop-blur-sm relative">
+        {/* Added Container DIV for layout constraint */}
+        <div className="max-w-7xl mx-auto px-6 relative">
+          <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="section-title">
+                <div className="h-8 w-1.5 bg-blue-500 rounded-sm"></div>
+                <h2>Jr. MEC Highlights</h2>
+              </div>
+              <p className="section-desc">Consistent excellence in Intermediate Exams</p>
+            </div>
+            <div className="hidden md:flex gap-2">
+              <button onClick={() => scroll('left', mecScrollRef)} className="w-10 h-10 flex items-center justify-center border border-brand-border rounded hover:bg-blue-500 hover:text-white transition-colors"><ArrowLeft size={20} /></button>
+              <button onClick={() => scroll('right', mecScrollRef)} className="w-10 h-10 flex items-center justify-center border border-brand-border rounded hover:bg-blue-500 hover:text-white transition-colors"><ArrowRight size={20} /></button>
+            </div>
           </div>
-          <p className="section-desc">Consistent excellence in Intermediate Exams</p>
-        </div>
 
-        <div className="relative group">
-          <button onClick={() => scroll('left', mecScrollRef)} className="nav-arrow-btn -left-4 lg:-left-16" aria-label="Scroll Left">
-            <ArrowLeft size={20} />
-          </button>
           <div className="carousel-container" ref={mecScrollRef}>
             {mecStudents.map((student, index) => (
               <StudentCard key={index} student={student} rank={index + 1} type="MEC" />
             ))}
           </div>
-          <button onClick={() => scroll('right', mecScrollRef)} className="nav-arrow-btn -right-4 lg:-right-16" aria-label="Scroll Right">
-            <ArrowRight size={20} />
-          </button>
         </div>
       </section>
 
-      {/* --- [NEW] JR CEC SECTION --- */}
-      <section id="jr-cec" className="py-16 max-w-7xl mx-auto px-6 relative border-t border-brand-border/30">
-        <div className="mb-2">
-          <div className="section-title">
-            <div className="h-8 w-1 bg-green-500 rounded-full"></div>
-            <h2>Jr. CEC Highlights</h2>
+      {/* --- JR CEC SECTION --- */}
+      {/* FIXED: Removed max-w-7xl from section so background is full width */}
+      <section id="jr-cec" className="py-16 border-t border-brand-border/30 bg-brand-dark/50 backdrop-blur-sm relative">
+        {/* Added Container DIV for layout constraint */}
+        <div className="max-w-7xl mx-auto px-6 relative">
+          <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="section-title">
+                <div className="h-8 w-1.5 bg-emerald-500 rounded-sm"></div>
+                <h2>Jr. CEC Highlights</h2>
+              </div>
+              <p className="section-desc">Top performers in Commerce, Economics, and Civics.</p>
+            </div>
           </div>
-          <p className="section-desc">Top performers in Commerce, Economics, and Civics.</p>
-        </div>
 
-        <div className="relative group">
-          <button onClick={() => scroll('left', cecScrollRef)} className="nav-arrow-btn -left-4 lg:-left-16" aria-label="Scroll Left">
-            <ArrowLeft size={20} />
-          </button>
           <div className="carousel-container" ref={cecScrollRef}>
             {cecStudents.map((student, index) => (
               <StudentCard key={index} student={student} rank={index + 1} type="CEC" />
             ))}
           </div>
-          <button onClick={() => scroll('right', cecScrollRef)} className="nav-arrow-btn -right-4 lg:-right-16" aria-label="Scroll Right">
-            <ArrowRight size={20} />
-          </button>
         </div>
       </section>
 
       {/* --- VIDEO HIGHLIGHTS --- */}
       <section id="highlights" className="py-16 bg-brand-card border-y border-brand-border">
-        {/* (Keep content same as original) */}
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-          {/* ... (Keep Video Section code) ... */}
           <div>
             <div className="flex items-center gap-2 mb-4">
               <PlayCircle className="text-brand-orange" size={24} />
-              <span className="text-brand-orange font-bold uppercase tracking-widest text-sm">Academy Highlights</span>
+              <span className="text-brand-orange font-bold uppercase tracking-widest text-sm font-mono">Academy Highlights</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
               Experience Life at <br /> Aditya CA Academy
             </h2>
-            <p className="text-brand-text mb-8 leading-relaxed">
+            <p className="text-brand-text mb-8 leading-relaxed text-lg">
               From rigorous study hours to expert mentorship, see how we mold students into professionals.
             </p>
           </div>
@@ -193,7 +190,7 @@ function App() {
         </div>
       </section>
 
-      {/* --- MANAGEMENT & FOOTER (Keep as is) --- */}
+      {/* --- MANAGEMENT --- */}
       <section id="management" className="py-16 px-6 bg-brand-card border-t border-brand-border">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">Visionary Leadership</h2>
@@ -204,7 +201,7 @@ function App() {
                   <img
                     src={leader.image}
                     alt={leader.name}
-                    className="w-16 h-16 object-cover rounded-full border border-brand-border group-hover:border-brand-orange transition-colors"
+                    className="w-16 h-16 object-cover rounded-xl border border-brand-border group-hover:border-brand-orange transition-colors"
                   />
                   <div>
                     <h3 className="text-lg font-bold text-white">{leader.name}</h3>
@@ -224,10 +221,9 @@ function App() {
       </section>
 
       <footer id="contact" className="bg-black py-12 border-t border-brand-border">
-        {/* ... (Footer content same as original) ... */}
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="md:col-span-2">
-            <img src="/assets/assets/logo.png" className="h-10 mb-6 opacity-90 brightness-110" alt="Aditya Logo" />
+            <img src="/assets/assets/logo.png" className="h-24 mb-6 opacity-90 brightness-110" alt="Aditya Logo" />
             <p className="text-brand-text text-sm leading-relaxed max-w-sm">
               Aditya CA Academy is dedicated to shaping the future of finance professionals through rigorous training and holistic development.
             </p>

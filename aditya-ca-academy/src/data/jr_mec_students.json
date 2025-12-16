@@ -1,28 +1,78 @@
 {
     "jr_mec_students": [
         {
-            "name": "C N S KARTEEK",
+            "name": "Greeshma Nallam",
+            "gainedMarks": 493,
+            "maxMarks": 500
+        },
+        {
+            "name": "Vennela Pati",
             "gainedMarks": 492,
             "maxMarks": 500
         },
         {
-            "name": "CH T SRI LAKSHMI",
+            "name": "P. Sri Kari",
+            "gainedMarks": 492,
+            "maxMarks": 500
+        },
+        {
+            "name": "Mohana Sri Kai",
+            "gainedMarks": 491,
+            "maxMarks": 500
+        },
+        {
+            "name": "Vasusri Immidisetty",
+            "gainedMarks": 491,
+            "maxMarks": 500
+        },
+        {
+            "name": "Manikanta Yashwanth Challa",
             "gainedMarks": 490,
             "maxMarks": 500
         },
         {
-            "name": "C S MADHURI",
-            "gainedMarks": 490,
+            "name": "Mahalakshmi Chowdalla",
+            "gainedMarks": 489,
             "maxMarks": 500
         },
         {
-            "name": "B V V V V U S K Tejaswini",
+            "name": "Sai Harshitha Kanchinadham",
+            "gainedMarks": 489,
+            "maxMarks": 500
+        },
+        {
+            "name": "Durga Tejaswani Kanithi",
             "gainedMarks": 488,
             "maxMarks": 500
         },
         {
-            "name": "P SAI MALLIK",
+            "name": "Geethika Sri Thota",
             "gainedMarks": 487,
+            "maxMarks": 500
+        },
+        {
+            "name": "Palak Jain",
+            "gainedMarks": 487,
+            "maxMarks": 500
+        },
+        {
+            "name": "Sameera Akula",
+            "gainedMarks": 486,
+            "maxMarks": 500
+        },
+        {
+            "name": "Roshan Sri Harsha",
+            "gainedMarks": 486,
+            "maxMarks": 500
+        },
+        {
+            "name": "Sree Samhita Medepalli",
+            "gainedMarks": 486,
+            "maxMarks": 500
+        },
+        {
+            "name": "Krishna Priya Thaduri",
+            "gainedMarks": 485,
             "maxMarks": 500
         }
     ]

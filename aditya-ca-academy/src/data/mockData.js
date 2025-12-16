@@ -1,6 +1,6 @@
 import caData from './ca_foundation_students.json'; 
 import mecData from './jr_mec_students.json';
-import cecData from './jr_cec_students.json'; // [1] Import
+import cecData from './jr_cec_students.json';
 
 export const getCAStudents = () => {
   const students = caData.ca_foundation_students || [];
@@ -8,7 +8,8 @@ export const getCAStudents = () => {
     .sort((a, b) => b.marks - a.marks)
     .map(s => ({
       ...s,
-      photo: `/assets/student photos/${s.htno}.jpg`
+      // CA Path: /assets/CA/908688.webp
+      photo: `/assets/CA/${s.htno}.webp` 
     }));
 };
 
@@ -18,17 +19,18 @@ export const getMecStudents = () => {
     .sort((a, b) => b.gainedMarks - a.gainedMarks)
     .map((s, i) => ({
       ...s,
-      photo: `/assets/MEC/jr${i + 1}.jpg`
+      // MEC Path: /assets/MEC/MEC_1.webp, MEC_2.webp...
+      photo: `/assets/MEC/MEC_${i + 1}.webp` 
     }));
 };
 
-// [2] New Helper
 export const getCECStudents = () => {
   const students = cecData.jr_cec_students || [];
   return students
     .sort((a, b) => b.gainedMarks - a.gainedMarks)
     .map((s, i) => ({
       ...s,
-      photo: `/assets/CEC/jr${i + 1}.jpg`
+      // CEC Path: /assets/CEC/CEC_1.webp, CEC_2.webp...
+      photo: `/assets/CEC/CEC_${i + 1}.webp` 
     }));
 };
