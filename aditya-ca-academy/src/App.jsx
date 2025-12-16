@@ -5,7 +5,10 @@ import Navbar from './components/Navbar';
 import StudentCard from './components/StudentCard';
 import TopperSpotlight from './components/TopperSpotlight';
 import { getCAStudents, getMecStudents, getCECStudents } from './data/mockData';
-import { Phone, MapPin, Quote, ChevronRight, PlayCircle, ArrowLeft, ArrowRight } from 'lucide-react';
+import {
+  Phone, MapPin, Quote, ChevronRight, PlayCircle, ArrowLeft, ArrowRight,
+  Calculator, BookOpen, TrendingUp, GraduationCap, Coins, PieChart, FileSpreadsheet
+} from 'lucide-react';
 
 const managementData = [
   {
@@ -31,7 +34,33 @@ const managementData = [
   }
 ];
 
-// REFINED HERO ANIMATIONS
+// --- BACKGROUND PATTERN COMPONENT ---
+const BackgroundPattern = () => {
+  const icons = [
+    Calculator, BookOpen, TrendingUp, GraduationCap,
+    Coins, PieChart, FileSpreadsheet, Calculator,
+    BookOpen, TrendingUp, GraduationCap, Coins
+  ];
+
+  return (
+    // FIXED: Increased opacity from 0.03 to 0.15 so icons are clearly visible
+    <div className="absolute inset-0 overflow-hidden opacity-[0.15] select-none pointer-events-none">
+      <div className="flex flex-wrap gap-16 justify-center items-center p-12 w-[150%] -ml-[25%] -mt-20 transform -rotate-12">
+        {Array.from({ length: 80 }).map((_, i) => {
+          const Icon = icons[i % icons.length];
+          return (
+            <div key={i} className="flex items-center justify-center w-24 h-24">
+              {/* Increased stroke width for better visibility */}
+              <Icon size={48} className="text-primary" strokeWidth={2} />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+// ANIMATIONS
 const heroContainer = {
   hidden: { opacity: 0 },
   visible: {
@@ -118,16 +147,16 @@ function App() {
   return (
     <div className="min-h-screen selection:bg-primary selection:text-white overflow-x-hidden relative bg-background">
 
-      {/* BACKGROUND DOTS - FIXED */}
-      {/* 1. Increased base opacity to 0.15 so dots are visible. */}
-      {/* 2. Reduced blur to 8px and added scale animation to fix banding issues. */}
+      {/* BACKGROUND LAYER - Finance Icons Pattern */}
       <motion.div
         initial={{ opacity: 0, scale: 1.1, filter: 'blur(8px)' }}
         animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="fixed inset-0 z-0 pointer-events-none"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(#ee764e_1.5px,transparent_1.5px)] [background-size:32px_32px] opacity-[0.15]"></div>
+        <BackgroundPattern />
+        {/* Slightly darker overlay to blend icons nicely */}
+        <div className="absolute inset-0 bg-background/40"></div>
       </motion.div>
 
       <Navbar />
