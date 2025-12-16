@@ -1,56 +1,79 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Trophy, Award, Sparkles } from 'lucide-react';
 
 const TopperSpotlight = ({ topper }) => {
     if (!topper) return null;
 
     return (
-        <section className="relative max-w-6xl mx-auto px-6 mb-16 z-10">
+        <section className="relative max-w-5xl mx-auto px-6 mb-16 z-10 mt-8">
+            {/* Background Glow */}
+            <div className="absolute inset-0 -z-10 bg-brand-orange/20 rounded-full opacity-30 transform scale-90 blur-[100px] pointer-events-none"></div>
+
             <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
-                className="topper-card"
+                className="bg-brand-card border border-brand-border rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row relative max-h-[500px]"
             >
-                {/* Photo Left */}
-                <div className="md:w-2/5 h-80 md:h-auto relative bg-brand-dark">
-                    <img
-                        src="/assets/topper.webp"
-                        className="absolute inset-0 w-full h-full object-cover object-top opacity-90"
-                        alt="All India Topper"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-card via-transparent to-transparent md:bg-gradient-to-r"></div>
+                {/* Decorative Watermark */}
+                <div className="absolute top-0 right-0 p-4 opacity-[0.03] pointer-events-none">
+                    <Trophy size={250} className="text-white -rotate-12" />
                 </div>
 
-                {/* Content Right */}
-                <div className="md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
-                    <div className="flex items-center gap-3 mb-4">
-                        <span className="h-0.5 w-8 bg-brand-orange"></span>
-                        <span className="text-brand-orange font-bold uppercase tracking-widest text-xs">All India Topper</span>
+                {/* Photo Section */}
+                <div className="relative overflow-hidden min-h-[300px] md:w-5/12 md:min-h-full">
+                    <div className="absolute inset-0 bg-brand-orange/5 mix-blend-overlay z-10 pointer-events-none"></div>
+
+                    <img
+                        src="/assets/topper.webp"
+                        className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
+                        alt={`Topper ${topper.name}`}
+                    />
+
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-card via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-brand-card z-10 pointer-events-none"></div>
+                </div>
+
+                {/* Details Section */}
+                {/* md:pl-24 pushes the text to the right */}
+                <div className="p-8 flex flex-col justify-center relative z-20 md:w-7/12 md:pl-24">
+                    <div className="mb-8">
+                        <div className="flex items-center gap-2 text-brand-orange mb-2 font-bold uppercase tracking-widest text-xs select-none">
+                            <Sparkles size={16} />
+                            <span>Outstanding Performance</span>
+                        </div>
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-1 select-text">
+                            {topper.name}
+                        </h2>
+                        <p className="text-brand-text text-base select-text">CA Foundation 2024</p>
                     </div>
 
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                        {topper.name}
-                    </h2>
-
-                    <div className="flex items-baseline gap-4 mb-8">
-                        <span className="text-6xl font-extrabold text-brand-orange">
-                            {topper.marks}
-                        </span>
-                        <div className="text-brand-text">
-                            <span className="block text-xs uppercase tracking-wide">Secured</span>
-                            <span className="font-bold text-white text-lg">Out of {topper.max}</span>
+                    {/* Stats - HUGE MARKS */}
+                    <div className="mb-8">
+                        <div className="flex flex-col items-start gap-1">
+                            <div className="flex items-baseline select-text">
+                                <span className="text-7xl md:text-8xl font-extrabold text-brand-orange leading-[0.9] tracking-tighter">
+                                    {topper.marks}
+                                </span>
+                                <span className="text-brand-text font-semibold text-2xl ml-2">
+                                    / {topper.max} Marks
+                                </span>
+                            </div>
+                            <p className="text-brand-text/50 font-mono text-sm font-medium tracking-widest uppercase mt-2 select-text cursor-text">
+                                Hall Ticket: <span className="text-white/80">{topper.htno}</span>
+                            </p>
                         </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-6 text-sm">
-                        <div className="bg-brand-dark border border-brand-border px-4 py-2 rounded">
-                            <p className="text-[10px] uppercase text-brand-text mb-1">Hall Ticket</p>
-                            <p className="font-mono text-white tracking-wide">{topper.htno}</p>
+                    {/* Footer - Highlightable */}
+                    <div className="border-t border-brand-border pt-4 flex items-center gap-3 relative z-30">
+                        <div className="bg-brand-orange/10 p-2 rounded-full text-brand-orange select-none">
+                            <Award size={20} />
                         </div>
-                        <div className="bg-brand-dark border border-brand-border px-4 py-2 rounded">
-                            <p className="text-[10px] uppercase text-brand-text mb-1">Batch</p>
-                            <p className="text-white">CA Foundation</p>
+                        <div>
+                            <h4 className="text-white font-bold text-sm select-text cursor-text">All India Topper</h4>
+                            <p className="text-brand-text text-xs select-text cursor-text">Proven excellence with consistent hard work.</p>
                         </div>
                     </div>
                 </div>

@@ -1,72 +1,81 @@
 import React from 'react';
-import { Medal } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Trophy, Award, Sparkles } from 'lucide-react';
 
-const StudentCard = ({ student, rank, type }) => {
-
-    // Helper to determine medal color and style
-    const getMedal = (r) => {
-        if (r === 1) return { color: "text-yellow-500", fill: "fill-yellow-500/20", label: "Gold" };
-        if (r === 2) return { color: "text-slate-400", fill: "fill-slate-400/20", label: "Silver" };
-        if (r === 3) return { color: "text-amber-700", fill: "fill-amber-700/20", label: "Bronze" };
-        return null;
-    };
-
-    const medal = getMedal(rank);
+const TopperSpotlight = ({ topper }) => {
+    if (!topper) return null;
 
     return (
-        <div className="student-card group">
+        <section className="topper-wrapper">
+            {/* Background Glow */}
+            <div className="topper-glow"></div>
 
-            {/* Minimal Medal Badge for Top 3 */}
-            {medal && (
-                <div className="absolute top-3 right-3 z-10 flex flex-col items-center">
-                    <div className="bg-brand-dark/80 backdrop-blur-sm p-1.5 rounded-full border border-white/10 shadow-lg">
-                        <Medal size={20} className={`${medal.color} ${medal.fill}`} />
-                    </div>
-                    {/* Optional: Tiny rank number below medal for clarity */}
-                    <span className={`text-[10px] font-bold mt-1 ${medal.color}`}>#{rank}</span>
-                </div>
-            )}
-
-            {/* Profile Photo */}
-            <div className="w-28 h-28 mb-4">
-                <img
-                    src={student.photo || "/assets/assets/student-sample.png"}
-                    alt={student.name}
-                    className="w-full h-full object-cover rounded-full border-4 border-brand-dark shadow-lg"
-                    onError={(e) => { e.target.src = "/assets/assets/student-sample.png" }}
-                />
-            </div>
-
-            {/* Student Details */}
-            <div className="w-full">
-                <h3 className="text-lg font-bold text-white mb-2 line-clamp-1 group-hover:text-brand-orange transition-colors" title={student.name}>
-                    {student.name}
-                </h3>
-
-                {/* Marks */}
-                <div className="flex items-baseline justify-center gap-1 mb-2">
-                    <span className="text-3xl font-extrabold text-brand-orange">
-                        {type === 'CA' ? student.marks : student.gainedMarks}
-                    </span>
-                    <span className="text-sm text-brand-text font-medium">
-                        / {type === 'CA' ? student.max : student.maxMarks}
-                    </span>
+            <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                className="topper-card"
+            >
+                {/* Decorative Watermark */}
+                <div className="topper-watermark">
+                    <Trophy size={250} className="text-white -rotate-12" />
                 </div>
 
-                {/* HT NO Label */}
-                {student.htno && (
-                    <div className="mt-2 pt-3 border-t border-brand-border w-full">
-                        <p
-                            className="text-xs font-mono text-brand-text bg-black/20 py-1 px-3 rounded inline-block"
-                            title="Hall Ticket Number"
-                        >
-                            <span className="font-bold text-slate-500">HT NO:</span> {student.htno}
-                        </p>
+                {/* Photo Section */}
+                <div className="topper-image-section">
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-brand-orange/5 mix-blend-overlay z-10 pointer-events-none"></div>
+
+                    <img
+                        src="/assets/topper.webp"
+                        className="topper-image"
+                        alt={`Topper ${topper.name}`}
+                    />
+
+                    {/* Gradient */}
+                    <div className="topper-gradient-overlay"></div>
+                </div>
+
+                {/* Details Section */}
+                <div className="topper-details-section">
+                    <div className="mb-8">
+                        <div className="topper-tagline">
+                            <Sparkles size={16} />
+                            <span>Outstanding Performance</span>
+                        </div>
+                        <h2 className="topper-name">
+                            {topper.name}
+                        </h2>
+                        <p className="topper-subtitle">CA Foundation 2024</p>
                     </div>
-                )}
-            </div>
-        </div>
+
+                    {/* Stats */}
+                    <div className="mb-8">
+                        <div className="topper-score-container">
+                            <div className="flex items-baseline">
+                                <span className="topper-score-main">{topper.marks}</span>
+                                <span className="topper-score-sub">/ {topper.max} Marks</span>
+                            </div>
+                            <p className="topper-htno-text">
+                                Hall Ticket: <span className="text-white/80 select-text">{topper.htno}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="topper-footer">
+                        <div className="topper-icon-circle">
+                            <Award size={20} />
+                        </div>
+                        <div>
+                            <h4 className="topper-footer-title">All India Topper</h4>
+                            <p className="topper-footer-desc">Proven excellence with consistent hard work.</p>
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+        </section>
     );
 };
 
-export default StudentCard;
+export default TopperSpotlight;

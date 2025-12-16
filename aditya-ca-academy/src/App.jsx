@@ -125,38 +125,6 @@ function App() {
           </div>
         </div>
       </section>
-
-      {/* --- VIDEO HIGHLIGHTS --- */}
-      <section id="highlights" className="py-16 bg-brand-card border-y border-brand-border">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <PlayCircle className="text-brand-orange" size={24} />
-              <span className="text-brand-orange font-bold uppercase tracking-widest text-sm">Academy Highlights</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
-              Experience Life at <br /> Aditya CA Academy
-            </h2>
-            <p className="text-brand-text mb-8 leading-relaxed">
-              From rigorous study hours to expert mentorship, see how we mold students into professionals.
-            </p>
-          </div>
-
-          <div className="bg-brand-dark p-2 border border-brand-border rounded-xl shadow-2xl">
-            <div className="relative bg-black rounded-lg overflow-hidden aspect-video">
-              <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/RPeBdfYPP8A?rel=0&modestbranding=1"
-                title="Aditya Highlights"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* --- JR MEC SECTION --- */}
       <section id="jr-mec" className="py-16 max-w-7xl mx-auto px-6 relative">
         <div className="mb-2">
@@ -191,6 +159,38 @@ function App() {
           </button>
         </div>
       </section>
+      {/* --- VIDEO HIGHLIGHTS --- */}
+      <section id="highlights" className="py-16 bg-brand-card border-y border-brand-border">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <PlayCircle className="text-brand-orange" size={24} />
+              <span className="text-brand-orange font-bold uppercase tracking-widest text-sm">Academy Highlights</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
+              Experience Life at <br /> Aditya CA Academy
+            </h2>
+            <p className="text-brand-text mb-8 leading-relaxed">
+              From rigorous study hours to expert mentorship, see how we mold students into professionals.
+            </p>
+          </div>
+
+          <div className="bg-brand-dark p-2 border border-brand-border rounded-xl shadow-2xl">
+            <div className="relative bg-black rounded-lg overflow-hidden aspect-video">
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/RPeBdfYPP8A?rel=0&modestbranding=1"
+                title="Aditya Highlights"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
 
       {/* --- MANAGEMENT --- */}
       <section id="management" className="py-16 px-6 bg-brand-card border-t border-brand-border">

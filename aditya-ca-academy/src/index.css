@@ -45,25 +45,16 @@ body {
     @apply bg-brand-card border border-brand-border hover:bg-brand-border text-white px-8 py-3 rounded-lg font-bold transition-all;
   }
   
-  /* REVERTED: Stable, clean rounded buttons positioned centrally */
   .nav-arrow-btn {
     @apply absolute top-1/2 -translate-y-1/2 z-20 p-3 bg-brand-card border border-brand-border text-brand-text shadow-xl transition-all duration-200 hover:bg-brand-orange hover:text-white hover:border-brand-orange hover:shadow-orange-900/20 rounded-xl disabled:opacity-0 disabled:pointer-events-none cursor-pointer flex items-center justify-center;
   }
 
   /* --- CARDS --- */
-  /* REVERTED: Strict 4-card desktop grid logic */
   .student-card {
     @apply snap-start bg-brand-card border border-brand-border rounded-xl shadow-lg transition-all duration-300 hover:border-brand-orange hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/60 p-6 flex flex-col items-center text-center relative
-    /* Mobile: 1 card */
     min-w-[85%] 
-    /* Tablet: 2 cards */
     md:min-w-[calc(50%-0.75rem)] 
-    /* Desktop: 4 cards fixed */
     lg:min-w-[calc(25%-1.125rem)];
-  }
-  
-  .topper-card {
-    @apply bg-brand-card border border-brand-border rounded-xl shadow-2xl transition-all duration-300 flex flex-col md:flex-row overflow-hidden;
   }
 
   .management-card {
@@ -75,7 +66,6 @@ body {
     @apply flex overflow-x-auto gap-6 px-1 py-12 snap-x scroll-smooth;
   }
   
-  /* Hide scrollbar */
   .carousel-container::-webkit-scrollbar {
     display: none;
   }
