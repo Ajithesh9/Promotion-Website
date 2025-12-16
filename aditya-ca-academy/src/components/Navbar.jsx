@@ -25,7 +25,12 @@ const Navbar = () => {
         <nav className={`fixed w-full z-50 top-0 transition-all duration-300 border-b ${scrolled ? 'bg-background/95 border-border shadow-lg backdrop-blur-md py-2' : 'bg-transparent border-transparent py-2'}`}>
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
                 <a href="#" className="flex items-center gap-2">
-                    <img src="/assets/assets/logo.png" className="h-16 md:h-18 brightness-110" alt="Aditya Logo" />
+                    <img
+                        src="/assets/assets/logo.png"
+                        // CHANGED: Increased height (h-20/h-24) and added negative margins (-my...)
+                        className="h-20 md:h-24 -my-2 md:-my-4 brightness-110 object-contain"
+                        alt="Aditya Logo"
+                    />
                 </a>
 
                 {/* Desktop Menu */}

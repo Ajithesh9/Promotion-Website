@@ -83,7 +83,6 @@ function App() {
       <TopperSpotlight topper={topper} />
 
       {/* --- CA FOUNDATION SECTION --- */}
-      {/* PERFORMANCE FIX: Removed backdrop-blur-sm, changed bg to bg-background/95 */}
       <section id="ca-foundation" className="py-16 border-t border-border/30 bg-background/95">
         <div className="max-w-7xl mx-auto px-6 relative">
           <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -100,7 +99,8 @@ function App() {
             </div>
           </div>
 
-          <div className="relative group">
+          {/* Corrected: Removed 'group' class to fix ghost hovering */}
+          <div className="relative">
             <div className="carousel-container" ref={caScrollRef}>
               {caStudents.map((student, index) => (
                 <StudentCard key={student.htno || index} student={student} rank={index + 1} type="CA" />
@@ -111,7 +111,6 @@ function App() {
       </section>
 
       {/* --- JR MEC SECTION --- */}
-      {/* PERFORMANCE FIX: Removed backdrop-blur-sm, changed bg to bg-background/95 */}
       <section id="jr-mec" className="py-16 border-t border-border/30 bg-background/95 relative">
         <div className="max-w-7xl mx-auto px-6 relative">
           <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -137,7 +136,6 @@ function App() {
       </section>
 
       {/* --- JR CEC SECTION --- */}
-      {/* PERFORMANCE FIX: Removed backdrop-blur-sm, changed bg to bg-background/95 */}
       <section id="jr-cec" className="py-16 border-t border-border/30 bg-background/95 relative">
         <div className="max-w-7xl mx-auto px-6 relative">
           <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -219,32 +217,63 @@ function App() {
       </section>
 
       <footer id="contact" className="bg-black py-12 border-t border-border">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div className="md:col-span-2">
-            <img src="/assets/assets/logo.png" className="h-24 mb-6 opacity-90 brightness-110" alt="Aditya Logo" />
-            <p className="text-muted text-sm leading-relaxed max-w-sm">
+        {/* Updated Grid: Changed to 12-column grid on desktop for better spacing control */}
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
+
+          {/* Logo Section - lg:col-span-3 (25%) */}
+          <div className="lg:col-span-3">
+            {/* FIX 1: Added 'w-auto' and 'object-contain' to prevent dragging/distortion */}
+            <img src="/assets/assets/logo.png" className="h-24 w-auto object-contain mb-6 opacity-90 brightness-110" alt="Aditya Logo" />
+            <p className="text-muted text-sm leading-relaxed">
               Aditya CA Academy is dedicated to shaping the future of finance professionals through rigorous training and holistic development.
             </p>
           </div>
 
-          <div>
+          {/* Contact Section - lg:col-span-3 (25%) */}
+          <div className="lg:col-span-3">
             <h4 className="text-white font-bold mb-6">Get in Touch</h4>
             <ul className="space-y-4 text-sm text-muted">
               <li className="flex items-center gap-3">
-                <Phone size={16} className="text-primary" />
-                <span>+91 99633 76665</span>
+                <Phone size={16} className="text-primary shrink-0" />
+                <div className="flex flex-col">
+                  <span>+91 99633 76665</span>
+                  <span>+91 9866912916</span>
+                </div>
               </li>
-              <li className="flex items-center gap-3">
-                <MapPin size={16} className="text-primary" />
-                <span>Lakshminarayana Nagar,<br />Kakinada - 533004</span>
+              <li className="flex items-start gap-3">
+                <MapPin size={16} className="text-primary shrink-0 mt-1" />
+                <span>
+                  Lakshminarayana Nagar, Near Aditya Degree College (Co-Ed.),<br />
+                  Kakinada - 533004, Andhra Pradesh
+                </span>
               </li>
             </ul>
           </div>
 
-          <div className="flex flex-col items-start">
+          {/* QR Code - lg:col-span-2 (16.6%) */}
+          {/* FIX 2: Reduced column span to 2 to minimize empty space between QR and Map */}
+          <div className="flex flex-col items-start lg:col-span-2">
             <h4 className="text-white font-bold mb-4">Scan Contact</h4>
             <div className="bg-white p-2 rounded-lg">
               <img src="/assets/assets/qrcode3.png" className="w-24 h-24" alt="QR Code" />
+            </div>
+          </div>
+
+          {/* Map Section - lg:col-span-4 (33.3%) */}
+          {/* Increased span to 4 to take up remaining space, bringing it closer to QR */}
+          <div className="lg:col-span-4 flex flex-col">
+            <h4 className="text-white font-bold mb-4">Locate Us</h4>
+            <div className="rounded-xl overflow-hidden border border-border shadow-lg h-full min-h-[200px]">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3816.2280076306683!2d82.241676974618!3d16.96333131488395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a382871b1cc621f%3A0x2de4565cbdc8b5b8!2sADITYA%20CA%20ACADEMY%20%26%20ADITYA%20M.%20Sc.%2C%20Campus!5e0!3m2!1sen!2sin!4v1765891817798!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0, minHeight: '200px' }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Campus Map"
+              ></iframe>
             </div>
           </div>
         </div>
