@@ -15,6 +15,7 @@ const Navbar = () => {
         { name: 'Home', href: '#home' },
         { name: 'CA Foundation', href: '#ca-foundation' },
         { name: 'Jr. MEC', href: '#jr-mec' },
+        { name: 'Jr. CEC', href: '#jr-cec' }, // [ADDED]
         { name: 'Highlights', href: '#highlights' },
         { name: 'Management', href: '#management' },
     ];
@@ -40,7 +41,7 @@ const Navbar = () => {
                     <a
                         href="assets/CA ACADEMY BRO NEW 2024 MAR.pdf"
                         download
-                        className="flex items-center gap-2 bg-brand-orange text-white px-5 py-2 rounded font-semibold text-sm hover:bg-orange-600 transition-all shadow-lg shadow-orange-900/20"
+                        className="flex items-center gap-2 bg-brand-orange text-white px-5 py-2 rounded font-semibold text-sm hover:bg-orange-600 transition-all"
                     >
                         <Download size={16} /> Brochure
                     </a>

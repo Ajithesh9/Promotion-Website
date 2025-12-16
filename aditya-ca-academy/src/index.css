@@ -6,24 +6,24 @@
 
 body {
   @apply bg-brand-dark text-brand-white font-sans antialiased;
-  background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 60%);
-  background-attachment: fixed;
+  /* Removed the radial gradient for a cleaner, flatter dark theme */
+  background-color: #0f172a; 
 }
 
-/* --- CUSTOM SCROLLBAR --- */
+/* Clean Scrollbar */
 ::-webkit-scrollbar {
-  height: 6px;
-  width: 6px;
+  height: 8px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
   @apply bg-brand-dark;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-brand-border rounded hover:bg-brand-orange transition-colors;
+  @apply bg-brand-border rounded hover:bg-brand-text transition-colors;
 }
 
 @layer components {
-  /* --- TYPOGRAPHY --- */
+  /* Typography */
   .hero-title {
     @apply text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight;
   }
@@ -31,46 +31,37 @@ body {
     @apply text-lg text-brand-text max-w-2xl mx-auto mb-8 font-light leading-relaxed;
   }
   .section-title {
-    @apply text-3xl font-bold text-white flex items-center gap-3;
+    @apply text-3xl font-bold text-white flex items-center gap-4;
   }
   .section-desc {
-    @apply text-brand-text ml-4 mt-1 block;
+    @apply text-brand-text ml-5 mt-2 block text-sm font-medium tracking-wide;
   }
 
-  /* --- BUTTONS --- */
+  /* Buttons */
   .btn-primary {
-    @apply bg-brand-orange hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-bold transition-all shadow-lg shadow-orange-900/20 flex items-center justify-center gap-2;
+    @apply bg-brand-orange hover:bg-orange-600 text-white px-8 py-3 rounded font-bold transition-all flex items-center justify-center gap-2;
   }
   .btn-secondary {
-    @apply bg-brand-card border border-brand-border hover:bg-brand-border text-white px-8 py-3 rounded-lg font-bold transition-all;
+    @apply bg-transparent border border-brand-border hover:bg-brand-border/50 text-white px-8 py-3 rounded font-bold transition-all;
   }
   
+  /* REDESIGNED NAV ARROWS */
   .nav-arrow-btn {
-    @apply absolute top-1/2 -translate-y-1/2 z-20 p-3 bg-brand-card border border-brand-border text-brand-text shadow-xl transition-all duration-200 hover:bg-brand-orange hover:text-white hover:border-brand-orange hover:shadow-orange-900/20 rounded-xl disabled:opacity-0 disabled:pointer-events-none cursor-pointer flex items-center justify-center;
-  }
-
-  /* --- CARDS --- */
-  .student-card {
-    @apply snap-start bg-brand-card border border-brand-border rounded-xl shadow-lg transition-all duration-300 hover:border-brand-orange hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/60 p-6 flex flex-col items-center text-center relative
-    min-w-[85%] 
-    md:min-w-[calc(50%-0.75rem)] 
-    lg:min-w-[calc(25%-1.125rem)];
+    @apply absolute top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center
+    bg-brand-card border border-brand-border text-brand-text rounded-full shadow-lg
+    transition-all duration-200 hover:bg-brand-orange hover:text-white hover:border-brand-orange cursor-pointer;
   }
 
   .management-card {
-    @apply bg-brand-dark border border-brand-border p-8 rounded-xl hover:border-brand-orange transition-colors h-full;
+    @apply bg-brand-dark border border-brand-border p-8 rounded hover:border-brand-orange transition-colors h-full;
   }
 
-  /* --- LAYOUT CONTAINERS --- */
+  /* Layout */
   .carousel-container {
-    @apply flex overflow-x-auto gap-6 px-1 py-12 snap-x scroll-smooth;
+    @apply flex overflow-x-auto gap-6 px-1 py-8 snap-x scroll-smooth;
+    scrollbar-width: none;
   }
-  
   .carousel-container::-webkit-scrollbar {
     display: none;
-  }
-  .carousel-container {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
   }
 }

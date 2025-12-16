@@ -1,0 +1,19 @@
+{
+    "jr_cec_students": [
+        {
+            "name": "N. SRUTHI",
+            "gainedMarks": 483,
+            "maxMarks": 500
+        },
+        {
+            "name": "B THEERDHA SREE",
+            "gainedMarks": 473,
+            "maxMarks": 500
+        },
+        {
+            "name": "ALIYA SAKEENA",
+            "gainedMarks": 464,
+            "maxMarks": 500
+        }
+    ]
+}

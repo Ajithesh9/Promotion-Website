@@ -1,66 +1,52 @@
 import React from 'react';
-import { Medal } from 'lucide-react';
 
 const StudentCard = ({ student, rank, type }) => {
 
-    // Helper to determine medal color and style
-    const getMedal = (r) => {
-        if (r === 1) return { color: "text-yellow-500", fill: "fill-yellow-500/20", label: "Gold" };
-        if (r === 2) return { color: "text-slate-400", fill: "fill-slate-400/20", label: "Silver" };
-        if (r === 3) return { color: "text-amber-700", fill: "fill-amber-700/20", label: "Bronze" };
-        return null;
-    };
-
-    const medal = getMedal(rank);
-
     return (
-        <div className="student-card group">
+        <div className="group relative bg-brand-card border border-brand-border p-6 rounded-lg flex flex-col items-center text-center transition-all duration-200 hover:border-brand-orange snap-start
+        min-w-[85%] md:min-w-[calc(50%-0.75rem)] lg:min-w-[calc(25%-1.125rem)]">
 
-            {/* Minimal Medal Badge for Top 3 */}
-            {medal && (
-                <div className="absolute top-3 right-3 z-10 flex flex-col items-center">
-                    <div className="bg-brand-dark/80 backdrop-blur-sm p-1.5 rounded-full border border-white/10 shadow-lg">
-                        <Medal size={20} className={`${medal.color} ${medal.fill}`} />
-                    </div>
-                    {/* Optional: Tiny rank number below medal for clarity */}
-                    <span className={`text-[10px] font-bold mt-1 ${medal.color}`}>#{rank}</span>
-                </div>
-            )}
+            {/* Simple Rank Tag (Top Right) */}
+            <div className="absolute top-4 right-4">
+                <span className={`text-[10px] font-bold px-2 py-1 rounded bg-brand-dark border border-brand-border text-brand-text uppercase tracking-wider
+                    ${rank === 1 ? 'text-yellow-500 border-yellow-500/30' : ''}
+                    ${rank === 2 ? 'text-slate-300 border-slate-300/30' : ''}
+                    ${rank === 3 ? 'text-orange-700 border-orange-700/30' : ''}
+                `}>
+                    Rank #{rank}
+                </span>
+            </div>
 
-            {/* Profile Photo */}
-            <div className="w-28 h-28 mb-4">
+            {/* Clean Photo Layout */}
+            <div className="mb-4 relative">
                 <img
                     src={student.photo || "/assets/assets/student-sample.png"}
                     alt={student.name}
-                    className="w-full h-full object-cover rounded-full border-4 border-brand-dark shadow-lg"
+                    className="w-24 h-24 object-cover rounded-full border border-brand-border group-hover:border-brand-orange transition-colors"
                     onError={(e) => { e.target.src = "/assets/assets/student-sample.png" }}
                 />
             </div>
 
-            {/* Student Details */}
-            <div className="w-full">
-                <h3 className="text-lg font-bold text-white mb-2 line-clamp-1 group-hover:text-brand-orange transition-colors" title={student.name}>
+            {/* Typography: Clear & Readable */}
+            <div className="w-full space-y-2">
+                <h3 className="text-lg font-bold text-white truncate px-2" title={student.name}>
                     {student.name}
                 </h3>
 
-                {/* Marks */}
-                <div className="flex items-baseline justify-center gap-1 mb-2">
-                    <span className="text-3xl font-extrabold text-brand-orange">
+                <div className="flex items-center justify-center gap-2">
+                    <span className="text-3xl font-bold text-brand-orange">
                         {type === 'CA' ? student.marks : student.gainedMarks}
                     </span>
-                    <span className="text-sm text-brand-text font-medium">
+                    <span className="text-sm text-brand-text/60 font-medium">
                         / {type === 'CA' ? student.max : student.maxMarks}
                     </span>
                 </div>
 
-                {/* HT NO Label */}
+                {/* Subtle Hall Ticket Info */}
                 {student.htno && (
-                    <div className="mt-2 pt-3 border-t border-brand-border w-full">
-                        <p
-                            className="text-xs font-mono text-brand-text bg-black/20 py-1 px-3 rounded inline-block"
-                            title="Hall Ticket Number"
-                        >
-                            <span className="font-bold text-slate-500">HT NO:</span> {student.htno}
+                    <div className="pt-2">
+                        <p className="text-xs font-mono text-brand-text/50">
+                            HT: {student.htno}
                         </p>
                     </div>
                 )}

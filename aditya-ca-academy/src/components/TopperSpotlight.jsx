@@ -14,7 +14,7 @@ const TopperSpotlight = ({ topper }) => {
                 initial={{ y: 20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
-                className="bg-brand-card border border-brand-border rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row relative max-h-[500px]"
+                className="bg-brand-card border border-brand-border rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row relative max-h-[600px]"
             >
                 {/* Decorative Watermark */}
                 <div className="absolute top-0 right-0 p-4 opacity-[0.03] pointer-events-none">
@@ -66,16 +66,24 @@ const TopperSpotlight = ({ topper }) => {
                         </div>
                     </div>
 
-                    {/* Footer - Highlightable */}
-                    <div className="border-t border-brand-border pt-4 flex items-center gap-3 relative z-30">
-                        <div className="bg-brand-orange/10 p-2 rounded-full text-brand-orange select-none">
-                            <Award size={20} />
+                    {/* --- UPDATED FOOTER SECTION --- */}
+                    <footer className="topper-spotlight-footer border-t border-brand-border pt-6 flex items-center gap-6 relative z-30">
+                        {/* Icon Wrapper */}
+                        <div className="badge-icon-wrapper bg-brand-orange/10 p-4 rounded-full text-brand-orange select-none">
+                            <Award size={30} /> {/* Increased size */}
                         </div>
-                        <div>
-                            <h4 className="text-white font-bold text-sm select-text cursor-text">All India Topper</h4>
-                            <p className="text-brand-text text-xs select-text cursor-text">Proven excellence with consistent hard work.</p>
+
+                        {/* Text Content */}
+                        <div className="badge-text-content">
+                            <h4 className="text-white font-bold text-2xl select-text cursor-text">
+                                All India Topper
+                            </h4>
+                            <p className="text-brand-text text-lg select-text cursor-text mt-1">
+                                Proven excellence with consistent hard work.
+                            </p>
                         </div>
-                    </div>
+                    </footer>
+
                 </div>
             </motion.div>
         </section>

@@ -2,10 +2,11 @@ import React, { useRef } from 'react';
 import Navbar from './components/Navbar';
 import StudentCard from './components/StudentCard';
 import TopperSpotlight from './components/TopperSpotlight';
-import { getCAStudents, getMecStudents } from './data/mockData';
+import { getCAStudents, getMecStudents, getCECStudents } from './data/mockData';
 import { Phone, MapPin, Quote, ChevronRight, PlayCircle, ArrowLeft, ArrowRight } from 'lucide-react';
 
 const managementData = [
+  // ... (Keep existing management data)
   {
     name: "Dr. N. Sesha Reddy",
     title: "Chairman",
@@ -32,22 +33,21 @@ const managementData = [
 function App() {
   const caStudents = getCAStudents();
   const mecStudents = getMecStudents();
+  const cecStudents = getCECStudents(); // [NEW]
   const topper = caStudents.length > 0 ? caStudents[0] : null;
 
-  // Refs for scrolling
+  // Refs
   const caScrollRef = useRef(null);
   const mecScrollRef = useRef(null);
+  const cecScrollRef = useRef(null); // [NEW]
 
-  // LOGIC: Scroll exactly 2 cards width
   const scroll = (direction, ref) => {
     if (ref.current) {
       const firstCard = ref.current.children[0];
       if (firstCard) {
-        // Card width + Gap (24px from gap-6 class) * 2 cards
         const cardWidth = firstCard.clientWidth;
         const gap = 24;
         const scrollAmount = (cardWidth + gap) * 2;
-
         ref.current.scrollBy({
           left: direction === 'left' ? -scrollAmount : scrollAmount,
           behavior: 'smooth'
@@ -60,7 +60,7 @@ function App() {
     <div className="min-h-screen selection:bg-brand-orange selection:text-white overflow-x-hidden">
       <Navbar />
 
-      {/* --- HERO SECTION --- */}
+      {/* HEADER & TOPPER SECTIONS (Keep as is) */}
       <header id="home" className="pt-32 pb-16 px-6 text-center max-w-7xl mx-auto">
         <div className="inline-block border border-brand-orange/30 bg-brand-orange/10 px-4 py-1 rounded-full mb-6">
           <span className="text-brand-orange font-bold text-xs uppercase tracking-widest">Aditya CA Academy</span>
@@ -82,7 +82,6 @@ function App() {
         </div>
       </header>
 
-      {/* --- TOPPER FEATURE --- */}
       <TopperSpotlight topper={topper} />
 
       {/* --- CA FOUNDATION SECTION --- */}
@@ -96,37 +95,24 @@ function App() {
             <p className="section-desc">Swipe to explore our top performers.</p>
           </div>
 
-          {/* SCROLLER WRAPPER */}
           <div className="relative group">
-            {/* Left Arrow: Symmetric positioning */}
-            <button
-              onClick={() => scroll('left', caScrollRef)}
-              className="nav-arrow-btn -left-4 lg:-left-12 top-1/2 -translate-y-1/2"
-              aria-label="Scroll Left"
-            >
-              <ArrowLeft size={24} />
+            <button onClick={() => scroll('left', caScrollRef)} className="nav-arrow-btn -left-4 lg:-left-16" aria-label="Scroll Left">
+              <ArrowLeft size={20} />
             </button>
-
-            {/* Scroll Container */}
             <div className="carousel-container" ref={caScrollRef}>
               {caStudents.map((student, index) => (
                 <StudentCard key={student.htno || index} student={student} rank={index + 1} type="CA" />
               ))}
             </div>
-
-            {/* Right Arrow: Symmetric positioning */}
-            <button
-              onClick={() => scroll('right', caScrollRef)}
-              className="nav-arrow-btn -right-4 lg:-right-12 top-1/2 -translate-y-1/2"
-              aria-label="Scroll Right"
-            >
-              <ArrowRight size={24} />
+            <button onClick={() => scroll('right', caScrollRef)} className="nav-arrow-btn -right-4 lg:-right-16" aria-label="Scroll Right">
+              <ArrowRight size={20} />
             </button>
           </div>
         </div>
       </section>
+
       {/* --- JR MEC SECTION --- */}
-      <section id="jr-mec" className="py-16 max-w-7xl mx-auto px-6 relative">
+      <section id="jr-mec" className="py-16 max-w-7xl mx-auto px-6 relative border-t border-brand-border/30">
         <div className="mb-2">
           <div className="section-title">
             <div className="h-8 w-1 bg-blue-500 rounded-full"></div>
@@ -136,32 +122,50 @@ function App() {
         </div>
 
         <div className="relative group">
-          <button
-            onClick={() => scroll('left', mecScrollRef)}
-            className="nav-arrow-btn -left-4 lg:-left-12 top-1/2 -translate-y-1/2"
-            aria-label="Scroll Left"
-          >
-            <ArrowLeft size={24} />
+          <button onClick={() => scroll('left', mecScrollRef)} className="nav-arrow-btn -left-4 lg:-left-16" aria-label="Scroll Left">
+            <ArrowLeft size={20} />
           </button>
-
           <div className="carousel-container" ref={mecScrollRef}>
             {mecStudents.map((student, index) => (
               <StudentCard key={index} student={student} rank={index + 1} type="MEC" />
             ))}
           </div>
-
-          <button
-            onClick={() => scroll('right', mecScrollRef)}
-            className="nav-arrow-btn -right-4 lg:-right-12 top-1/2 -translate-y-1/2"
-            aria-label="Scroll Right"
-          >
-            <ArrowRight size={24} />
+          <button onClick={() => scroll('right', mecScrollRef)} className="nav-arrow-btn -right-4 lg:-right-16" aria-label="Scroll Right">
+            <ArrowRight size={20} />
           </button>
         </div>
       </section>
+
+      {/* --- [NEW] JR CEC SECTION --- */}
+      <section id="jr-cec" className="py-16 max-w-7xl mx-auto px-6 relative border-t border-brand-border/30">
+        <div className="mb-2">
+          <div className="section-title">
+            <div className="h-8 w-1 bg-green-500 rounded-full"></div>
+            <h2>Jr. CEC Highlights</h2>
+          </div>
+          <p className="section-desc">Top performers in Commerce, Economics, and Civics.</p>
+        </div>
+
+        <div className="relative group">
+          <button onClick={() => scroll('left', cecScrollRef)} className="nav-arrow-btn -left-4 lg:-left-16" aria-label="Scroll Left">
+            <ArrowLeft size={20} />
+          </button>
+          <div className="carousel-container" ref={cecScrollRef}>
+            {cecStudents.map((student, index) => (
+              <StudentCard key={index} student={student} rank={index + 1} type="CEC" />
+            ))}
+          </div>
+          <button onClick={() => scroll('right', cecScrollRef)} className="nav-arrow-btn -right-4 lg:-right-16" aria-label="Scroll Right">
+            <ArrowRight size={20} />
+          </button>
+        </div>
+      </section>
+
       {/* --- VIDEO HIGHLIGHTS --- */}
       <section id="highlights" className="py-16 bg-brand-card border-y border-brand-border">
+        {/* (Keep content same as original) */}
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+          {/* ... (Keep Video Section code) ... */}
           <div>
             <div className="flex items-center gap-2 mb-4">
               <PlayCircle className="text-brand-orange" size={24} />
@@ -174,8 +178,7 @@ function App() {
               From rigorous study hours to expert mentorship, see how we mold students into professionals.
             </p>
           </div>
-
-          <div className="bg-brand-dark p-2 border border-brand-border rounded-xl shadow-2xl">
+          <div className="bg-brand-dark p-2 border border-brand-border rounded-xl shadow-xl">
             <div className="relative bg-black rounded-lg overflow-hidden aspect-video">
               <iframe
                 className="w-full h-full"
@@ -190,9 +193,7 @@ function App() {
         </div>
       </section>
 
-
-
-      {/* --- MANAGEMENT --- */}
+      {/* --- MANAGEMENT & FOOTER (Keep as is) --- */}
       <section id="management" className="py-16 px-6 bg-brand-card border-t border-brand-border">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">Visionary Leadership</h2>
@@ -203,7 +204,7 @@ function App() {
                   <img
                     src={leader.image}
                     alt={leader.name}
-                    className="w-16 h-16 object-cover rounded-full border-2 border-brand-border group-hover:border-brand-orange transition-colors"
+                    className="w-16 h-16 object-cover rounded-full border border-brand-border group-hover:border-brand-orange transition-colors"
                   />
                   <div>
                     <h3 className="text-lg font-bold text-white">{leader.name}</h3>
@@ -222,8 +223,8 @@ function App() {
         </div>
       </section>
 
-      {/* --- FOOTER --- */}
       <footer id="contact" className="bg-black py-12 border-t border-brand-border">
+        {/* ... (Footer content same as original) ... */}
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="md:col-span-2">
             <img src="/assets/assets/logo.png" className="h-10 mb-6 opacity-90 brightness-110" alt="Aditya Logo" />
