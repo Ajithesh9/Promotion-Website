@@ -177,7 +177,7 @@ function App() {
             <div className="relative bg-black rounded-lg overflow-hidden aspect-video">
               <iframe
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/RPeBdfYPP8A?rel=0&modestbranding=1"
+                src="https://www.youtube.com/embed/RPeBdfYPP8A?si=GAF7RFmnt19k6_oW"
                 title="Aditya Highlights"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
