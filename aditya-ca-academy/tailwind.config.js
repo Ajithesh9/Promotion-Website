@@ -7,14 +7,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          orange: '#ee764e',    // Solid Brand Color
-          dark: '#0f172a',      // Slate 900 (Background)
-          card: '#1e293b',      // Slate 800 (Card Bg)
-          text: '#94a3b8',      // Slate 400 (Muted Text)
-          white: '#f8fafc',     // Slate 50 (Main Text)
-          border: '#334155',    // Slate 700 (Borders)
-        }
+        // Semantic Naming Convention
+        primary: '#ee764e',      // Was brand-orange
+        background: '#0f172a',   // Was brand-dark
+        surface: '#1e293b',      // Was brand-card
+        muted: '#94a3b8',        // Was brand-text
+        foreground: '#f8fafc',   // Was brand-white
+        border: '#334155',       // Was brand-border
       },
       fontFamily: {
         sans: ['Manrope', 'sans-serif'],

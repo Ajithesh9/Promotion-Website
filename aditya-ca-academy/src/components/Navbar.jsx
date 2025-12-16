@@ -21,11 +21,10 @@ const Navbar = () => {
     ];
 
     return (
-        // Reduced padding (py-2) to accommodate larger logo without increasing Navbar height
-        <nav className={`fixed w-full z-50 top-0 transition-all duration-300 border-b ${scrolled ? 'bg-brand-dark/95 border-brand-border shadow-lg backdrop-blur-md py-2' : 'bg-transparent border-transparent py-2'}`}>
+        // Updated: bg-background/95, border-border, text-muted
+        <nav className={`fixed w-full z-50 top-0 transition-all duration-300 border-b ${scrolled ? 'bg-background/95 border-border shadow-lg backdrop-blur-md py-2' : 'bg-transparent border-transparent py-2'}`}>
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
                 <a href="#" className="flex items-center gap-2">
-                    {/* Increased Logo Size: h-14 (mobile) to h-16 (desktop) */}
                     <img src="/assets/assets/logo.png" className="h-16 md:h-18 brightness-110" alt="Aditya Logo" />
                 </a>
 
@@ -35,7 +34,8 @@ const Navbar = () => {
                         <a
                             key={link.name}
                             href={link.href}
-                            className="text-sm font-medium text-brand-text hover:text-white transition-colors uppercase tracking-wide"
+                            // Updated: text-muted
+                            className="text-sm font-medium text-muted hover:text-white transition-colors uppercase tracking-wide"
                         >
                             {link.name}
                         </a>
@@ -43,7 +43,8 @@ const Navbar = () => {
                     <a
                         href="assets/CA ACADEMY BRO NEW 2024 MAR.pdf"
                         download
-                        className="flex items-center gap-2 bg-brand-orange text-white px-5 py-2 rounded font-semibold text-sm hover:bg-orange-600 transition-all"
+                        // Updated: bg-primary
+                        className="flex items-center gap-2 bg-primary text-white px-5 py-2 rounded font-semibold text-sm hover:bg-orange-600 transition-all"
                     >
                         <Download size={16} /> Brochure
                     </a>
@@ -56,13 +57,14 @@ const Navbar = () => {
 
                 {/* Mobile Menu */}
                 {isOpen && (
-                    <div className="absolute top-full left-0 w-full bg-brand-card border-b border-brand-border p-6 md:hidden flex flex-col gap-4 shadow-2xl">
+                    // Updated: bg-surface, border-border, hover:text-primary
+                    <div className="absolute top-full left-0 w-full bg-surface border-b border-border p-6 md:hidden flex flex-col gap-4 shadow-2xl">
                         {links.map((link) => (
                             <a
                                 key={link.name}
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
-                                className="text-lg font-medium text-slate-300 hover:text-brand-orange"
+                                className="text-lg font-medium text-slate-300 hover:text-primary"
                             >
                                 {link.name}
                             </a>

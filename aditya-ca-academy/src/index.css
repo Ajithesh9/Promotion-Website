@@ -1,20 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap'); /* Added Mono font for numbers */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  @apply bg-brand-dark text-brand-white font-sans antialiased;
-  background-color: #0f172a;
+  /* Updated: bg-background, text-foreground */
+  @apply bg-background text-foreground font-sans antialiased;
+  
   /* Cool Tech Grid Background */
   background-image: 
     radial-gradient(#334155 1px, transparent 1px), 
     radial-gradient(#334155 1px, transparent 1px);
   background-size: 40px 40px;
   background-position: 0 0, 20px 20px;
-  opacity: 1;
 }
 
 /* Scrollbar styling */
@@ -23,10 +23,10 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-brand-dark;
+  @apply bg-background; /* Updated */
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-brand-border rounded-full hover:bg-brand-orange transition-colors;
+  @apply bg-border rounded-full hover:bg-primary transition-colors; /* Updated */
 }
 
 @layer components {
@@ -35,32 +35,36 @@ body {
     @apply text-5xl md:text-7xl font-extrabold text-white tracking-tighter mb-6 leading-tight;
   }
   .hero-subtitle {
-    @apply text-lg text-brand-text max-w-2xl mx-auto mb-8 font-light leading-relaxed;
+    @apply text-lg text-muted max-w-2xl mx-auto mb-8 font-light leading-relaxed; /* Updated */
   }
   .section-title {
     @apply text-3xl font-bold text-white flex items-center gap-4;
   }
   .section-desc {
-    @apply text-brand-text ml-5 mt-2 block text-sm font-medium tracking-wide uppercase;
+    @apply text-muted ml-5 mt-2 block text-sm font-medium tracking-wide uppercase; /* Updated */
   }
 
   /* Buttons: Sharp & Techy */
   .btn-primary {
-    @apply bg-brand-orange hover:bg-white hover:text-brand-orange text-white px-8 py-3 rounded-lg font-bold transition-all flex items-center justify-center gap-2 border border-transparent hover:border-brand-orange;
+    /* Updated: bg-primary, hover:border-primary */
+    @apply bg-primary hover:bg-white hover:text-primary text-white px-8 py-3 rounded-lg font-bold transition-all flex items-center justify-center gap-2 border border-transparent hover:border-primary;
   }
   .btn-secondary {
-    @apply bg-transparent border border-brand-border hover:border-white text-white px-8 py-3 rounded-lg font-bold transition-all;
+    /* Updated: border-border */
+    @apply bg-transparent border border-border hover:border-white text-white px-8 py-3 rounded-lg font-bold transition-all;
   }
   
-  /* Nav Arrows: Square with rounded corners (Squircle) */
+  /* Nav Arrows */
   .nav-arrow-btn {
+    /* Updated: bg-surface, border-border, text-muted, hover:bg-primary */
     @apply absolute top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center
-    bg-brand-card border border-brand-border text-brand-text rounded-xl shadow-lg
-    transition-all duration-200 hover:bg-brand-orange hover:text-white hover:border-brand-orange cursor-pointer hover:scale-110;
+    bg-surface border border-border text-muted rounded-xl shadow-lg
+    transition-all duration-200 hover:bg-primary hover:text-white hover:border-primary cursor-pointer hover:scale-110;
   }
 
   .management-card {
-    @apply bg-brand-dark border border-brand-border p-8 rounded-2xl hover:border-brand-orange transition-colors h-full hover:shadow-xl;
+    /* Updated: bg-background, border-border, hover:border-primary */
+    @apply bg-background border border-border p-8 rounded-2xl hover:border-primary transition-colors h-full hover:shadow-xl;
   }
 
   /* Layout */

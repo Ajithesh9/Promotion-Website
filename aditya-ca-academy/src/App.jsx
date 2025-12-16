@@ -55,17 +55,17 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen selection:bg-brand-orange selection:text-white overflow-x-hidden relative">
+    <div className="min-h-screen selection:bg-primary selection:text-white overflow-x-hidden relative">
       <Navbar />
 
       {/* HERO SECTION */}
       <header id="home" className="pt-32 pb-16 px-6 text-center max-w-7xl mx-auto relative z-10">
-        <div className="inline-block border border-brand-orange/30 bg-brand-orange/10 px-4 py-1 rounded-full mb-6">
-          <span className="text-brand-orange font-bold text-xs uppercase tracking-widest">Aditya CA Academy</span>
+        <div className="inline-block border border-primary/30 bg-primary/10 px-4 py-1 rounded-full mb-6">
+          <span className="text-primary font-bold text-xs uppercase tracking-widest">Aditya CA Academy</span>
         </div>
         <h1 className="hero-title">
           Forging the Next Generation of <br />
-          <span className="text-brand-orange">Chartered Accountants</span>
+          <span className="text-primary">Chartered Accountants</span>
         </h1>
         <p className="hero-subtitle">
           Join an institution where discipline meets excellence. With 100% pass percentages and state-wide ranks, we turn aspirations into achievements.
@@ -83,20 +83,20 @@ function App() {
       <TopperSpotlight topper={topper} />
 
       {/* --- CA FOUNDATION SECTION --- */}
-      {/* Background is full width because max-w-7xl is INSIDE */}
-      <section id="ca-foundation" className="py-16 border-t border-brand-border/30 bg-brand-dark/50 backdrop-blur-sm">
+      {/* PERFORMANCE FIX: Removed backdrop-blur-sm, changed bg to bg-background/95 */}
+      <section id="ca-foundation" className="py-16 border-t border-border/30 bg-background/95">
         <div className="max-w-7xl mx-auto px-6 relative">
           <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <div className="section-title">
-                <div className="h-8 w-1.5 bg-brand-orange rounded-sm"></div>
+                <div className="h-8 w-1.5 bg-primary rounded-sm"></div>
                 <h2>CA Foundation Results</h2>
               </div>
               <p className="section-desc">Setting benchmarks with outstanding scores.</p>
             </div>
             <div className="hidden md:flex gap-2">
-              <button onClick={() => scroll('left', caScrollRef)} className="w-10 h-10 flex items-center justify-center border border-brand-border rounded hover:bg-brand-orange hover:text-white transition-colors"><ArrowLeft size={20} /></button>
-              <button onClick={() => scroll('right', caScrollRef)} className="w-10 h-10 flex items-center justify-center border border-brand-border rounded hover:bg-brand-orange hover:text-white transition-colors"><ArrowRight size={20} /></button>
+              <button onClick={() => scroll('left', caScrollRef)} className="w-10 h-10 flex items-center justify-center border border-border rounded hover:bg-primary hover:text-white transition-colors"><ArrowLeft size={20} /></button>
+              <button onClick={() => scroll('right', caScrollRef)} className="w-10 h-10 flex items-center justify-center border border-border rounded hover:bg-primary hover:text-white transition-colors"><ArrowRight size={20} /></button>
             </div>
           </div>
 
@@ -111,9 +111,8 @@ function App() {
       </section>
 
       {/* --- JR MEC SECTION --- */}
-      {/* FIXED: Removed max-w-7xl from section so background is full width */}
-      <section id="jr-mec" className="py-16 border-t border-brand-border/30 bg-brand-dark/50 backdrop-blur-sm relative">
-        {/* Added Container DIV for layout constraint */}
+      {/* PERFORMANCE FIX: Removed backdrop-blur-sm, changed bg to bg-background/95 */}
+      <section id="jr-mec" className="py-16 border-t border-border/30 bg-background/95 relative">
         <div className="max-w-7xl mx-auto px-6 relative">
           <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
@@ -124,8 +123,8 @@ function App() {
               <p className="section-desc">Consistent excellence in Intermediate Exams</p>
             </div>
             <div className="hidden md:flex gap-2">
-              <button onClick={() => scroll('left', mecScrollRef)} className="w-10 h-10 flex items-center justify-center border border-brand-border rounded hover:bg-blue-500 hover:text-white transition-colors"><ArrowLeft size={20} /></button>
-              <button onClick={() => scroll('right', mecScrollRef)} className="w-10 h-10 flex items-center justify-center border border-brand-border rounded hover:bg-blue-500 hover:text-white transition-colors"><ArrowRight size={20} /></button>
+              <button onClick={() => scroll('left', mecScrollRef)} className="w-10 h-10 flex items-center justify-center border border-border rounded hover:bg-blue-500 hover:text-white transition-colors"><ArrowLeft size={20} /></button>
+              <button onClick={() => scroll('right', mecScrollRef)} className="w-10 h-10 flex items-center justify-center border border-border rounded hover:bg-blue-500 hover:text-white transition-colors"><ArrowRight size={20} /></button>
             </div>
           </div>
 
@@ -138,9 +137,8 @@ function App() {
       </section>
 
       {/* --- JR CEC SECTION --- */}
-      {/* FIXED: Removed max-w-7xl from section so background is full width */}
-      <section id="jr-cec" className="py-16 border-t border-brand-border/30 bg-brand-dark/50 backdrop-blur-sm relative">
-        {/* Added Container DIV for layout constraint */}
+      {/* PERFORMANCE FIX: Removed backdrop-blur-sm, changed bg to bg-background/95 */}
+      <section id="jr-cec" className="py-16 border-t border-border/30 bg-background/95 relative">
         <div className="max-w-7xl mx-auto px-6 relative">
           <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
@@ -161,21 +159,21 @@ function App() {
       </section>
 
       {/* --- VIDEO HIGHLIGHTS --- */}
-      <section id="highlights" className="py-16 bg-brand-card border-y border-brand-border">
+      <section id="highlights" className="py-16 bg-surface border-y border-border">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <PlayCircle className="text-brand-orange" size={24} />
-              <span className="text-brand-orange font-bold uppercase tracking-widest text-sm font-mono">Academy Highlights</span>
+              <PlayCircle className="text-primary" size={24} />
+              <span className="text-primary font-bold uppercase tracking-widest text-sm font-mono">Academy Highlights</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
               Experience Life at <br /> Aditya CA Academy
             </h2>
-            <p className="text-brand-text mb-8 leading-relaxed text-lg">
+            <p className="text-muted mb-8 leading-relaxed text-lg">
               From rigorous study hours to expert mentorship, see how we mold students into professionals.
             </p>
           </div>
-          <div className="bg-brand-dark p-2 border border-brand-border rounded-xl shadow-xl">
+          <div className="bg-background p-2 border border-border rounded-xl shadow-xl">
             <div className="relative bg-black rounded-lg overflow-hidden aspect-video">
               <iframe
                 className="w-full h-full"
@@ -191,7 +189,7 @@ function App() {
       </section>
 
       {/* --- MANAGEMENT --- */}
-      <section id="management" className="py-16 px-6 bg-brand-card border-t border-brand-border">
+      <section id="management" className="py-16 px-6 bg-surface border-t border-border">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">Visionary Leadership</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -201,18 +199,18 @@ function App() {
                   <img
                     src={leader.image}
                     alt={leader.name}
-                    className="w-16 h-16 object-cover rounded-xl border border-brand-border group-hover:border-brand-orange transition-colors"
+                    className="w-16 h-16 object-cover rounded-xl border border-border group-hover:border-primary transition-colors"
                   />
                   <div>
                     <h3 className="text-lg font-bold text-white">{leader.name}</h3>
-                    <p className="text-brand-orange text-xs uppercase font-bold tracking-wider">{leader.title}</p>
+                    <p className="text-primary text-xs uppercase font-bold tracking-wider">{leader.title}</p>
                   </div>
                 </div>
-                <p className="text-brand-text text-sm italic leading-relaxed mb-4">
+                <p className="text-muted text-sm italic leading-relaxed mb-4">
                   "{leader.quote}"
                 </p>
                 <div className="flex justify-end">
-                  <Quote size={20} className="text-brand-border" />
+                  <Quote size={20} className="text-border" />
                 </div>
               </div>
             ))}
@@ -220,24 +218,24 @@ function App() {
         </div>
       </section>
 
-      <footer id="contact" className="bg-black py-12 border-t border-brand-border">
+      <footer id="contact" className="bg-black py-12 border-t border-border">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="md:col-span-2">
             <img src="/assets/assets/logo.png" className="h-24 mb-6 opacity-90 brightness-110" alt="Aditya Logo" />
-            <p className="text-brand-text text-sm leading-relaxed max-w-sm">
+            <p className="text-muted text-sm leading-relaxed max-w-sm">
               Aditya CA Academy is dedicated to shaping the future of finance professionals through rigorous training and holistic development.
             </p>
           </div>
 
           <div>
             <h4 className="text-white font-bold mb-6">Get in Touch</h4>
-            <ul className="space-y-4 text-sm text-brand-text">
+            <ul className="space-y-4 text-sm text-muted">
               <li className="flex items-center gap-3">
-                <Phone size={16} className="text-brand-orange" />
+                <Phone size={16} className="text-primary" />
                 <span>+91 99633 76665</span>
               </li>
               <li className="flex items-center gap-3">
-                <MapPin size={16} className="text-brand-orange" />
+                <MapPin size={16} className="text-primary" />
                 <span>Lakshminarayana Nagar,<br />Kakinada - 533004</span>
               </li>
             </ul>
@@ -251,8 +249,8 @@ function App() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-brand-border/50 text-center text-xs text-brand-text">
-          © 2025 Aditya CA Academy. All rights reserved. | <a href="https://github.com/ajithesh9" className="hover:text-brand-orange transition-colors">Designed by Ajithesh</a>
+        <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-border/50 text-center text-xs text-muted">
+          © 2025 Aditya CA Academy. All rights reserved. | <a href="https://github.com/ajithesh9" className="hover:text-primary transition-colors">Designed by Ajithesh</a>
         </div>
       </footer>
     </div>
