@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import StudentCard from './components/StudentCard';
 import TopperSpotlight from './components/TopperSpotlight';
+import Chatbot from './components/Chatbox';
 import { getCAStudents, getMecStudents, getCECStudents } from './data/mockData';
 import {
   Phone, MapPin, Quote, ChevronRight, PlayCircle, ArrowLeft, ArrowRight,
@@ -435,6 +436,7 @@ function App() {
           © 2025 Aditya CA Academy. All rights reserved. | <a href="https://github.com/ajithesh9" className="hover:text-primary transition-colors">Designed by Ajithesh</a>
         </div>
       </footer>
+      <Chatbot />
     </div>
   );
 }

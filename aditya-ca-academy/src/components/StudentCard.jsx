@@ -17,34 +17,37 @@ const StudentCard = ({ student, rank, type }) => {
     };
 
     return (
-        <div className="group relative bg-surface border-2 border-border hover:border-primary/50 transition duration-300 rounded-xl overflow-hidden snap-start flex flex-col
-        min-w-[85%] md:min-w-[calc(50%-0.75rem)] lg:min-w-[calc(25%-1.125rem)] shadow-lg hover:shadow-xl hover:-translate-y-1 will-change-transform">
+        <div className="group relative bg-surface border-2 border-border hover:border-primary/50 transition duration-300 rounded-2xl overflow-hidden snap-start flex flex-col
+        /* CHANGED: Used calculated widths to fit exactly 4 cards on desktop */
+        min-w-[85%] md:min-w-[calc(50%-1rem)] lg:min-w-[calc(25%-1.25rem)] 
+        shadow-xl hover:shadow-2xl hover:-translate-y-2 will-change-transform">
 
             {/* Top Section: Identity */}
-            <div className="p-6 flex flex-col items-center bg-background/30 relative min-h-[180px]">
+            <div className="p-6 flex flex-col items-center bg-background/30 relative min-h-[260px]">
 
                 {/* Rank Tag */}
                 {isTopRanker && (
-                    <div className={`absolute top-0 left-0 text-[10px] font-mono font-bold px-3 py-1 rounded-br-lg uppercase tracking-widest border-r border-b ${getRankStyle(rank)} flex items-center gap-2`}>
-                        <Crown size={12} strokeWidth={2.5} />
+                    <div className={`absolute top-0 left-0 text-xs font-mono font-bold px-4 py-1.5 rounded-br-xl uppercase tracking-widest border-r border-b ${getRankStyle(rank)} flex items-center gap-2`}>
+                        <Crown size={14} strokeWidth={2.5} />
                         Rank #{rank.toString().padStart(2, '0')}
                     </div>
                 )}
 
                 {/* Photo */}
-                <div className="w-28 h-28 mb-4 relative mt-2">
+                {/* Kept large photo as requested previously */}
+                <div className="w-44 h-44 mb-4 relative mt-4 shadow-2xl rounded-full">
                     <img
                         src={student.photo || "/assets/assets/student-sample.png"}
                         alt={student.name}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover object-top rounded-2xl border-2 border-border group-hover:border-primary transition-colors duration-300 shadow-md"
+                        className="w-full h-full object-cover object-top rounded-2xl border-2 border-border group-hover:border-primary transition-colors duration-300 shadow-lg"
                         onError={(e) => { e.target.src = "/assets/assets/student-sample.png" }}
                     />
                 </div>
 
                 {/* Name */}
-                <h3 className="text-lg font-bold text-white text-center leading-tight mb-1 group-hover:text-primary transition-colors duration-300 line-clamp-1 w-full" title={student.name}>
+                <h3 className="text-3xl font-extrabold text-white text-center leading-none mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-2 w-full tracking-tight" title={student.name}>
                     {student.name}
                 </h3>
             </div>
@@ -53,15 +56,15 @@ const StudentCard = ({ student, rank, type }) => {
             <div className="h-px w-full bg-border/50"></div>
 
             {/* Bottom Section: Performance Stats & ID/Progress */}
-            <div className="bg-surface p-4 flex items-center justify-between">
+            <div className="bg-surface p-5 flex items-center justify-between mt-auto">
                 {/* Left Side: Marks */}
                 <div className="flex flex-col">
-                    <span className="text-[10px] uppercase tracking-widest text-muted font-bold">Score</span>
+                    <span className="text-[10px] uppercase tracking-widest text-muted font-bold mb-0.5">Score</span>
                     <div className="flex items-baseline gap-1">
-                        <span className="text-3xl font-bold text-primary font-mono">
+                        <span className="text-4xl font-extrabold text-primary font-mono tracking-tighter">
                             {marks}
                         </span>
-                        <span className="text-xs text-muted/50 font-medium">
+                        <span className="text-xs text-muted/50 font-bold">
                             / {max}
                         </span>
                     </div>
@@ -70,22 +73,21 @@ const StudentCard = ({ student, rank, type }) => {
                 {/* Right Side: HT NO (for CA) OR Vertical Progress Bar (for MEC/CEC) */}
                 {student.htno ? (
                     <div className="text-right">
-                        <span className="text-[10px] uppercase tracking-widest text-muted font-bold block">HT.NO</span>
-                        <span className="text-sm font-mono text-white/80 tracking-wider">
+                        <span className="text-[10px] uppercase tracking-widest text-muted font-bold block mb-0.5">HT.NO</span>
+                        <span className="text-base font-mono text-white/90 tracking-wider font-bold">
                             {student.htno}
                         </span>
                     </div>
                 ) : (
                     // VERTICAL PROGRESS BAR for MEC/CEC
-                    // Updated: Tighter gap, bigger text (text-sm), white/80 color, proper centering
                     <div className="flex items-center gap-2">
                         {/* Percentage Label */}
-                        <span className="text-sm font-bold text-white/80 font-mono leading-none">
+                        <span className="text-base font-bold text-white/80 font-mono leading-none">
                             {percentage}%
                         </span>
 
                         {/* The Bar Container */}
-                        <div className="h-8 w-1.5 bg-primary/20 rounded-full relative overflow-hidden flex items-end">
+                        <div className="h-8 w-2 bg-primary/20 rounded-full relative overflow-hidden flex items-end">
                             {/* The Filled Portion */}
                             <div
                                 className="w-full bg-primary rounded-full transition-all duration-500"
